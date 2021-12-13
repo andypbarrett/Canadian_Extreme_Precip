@@ -1,0 +1,122 @@
+[
+    {
+        "location": "alert",
+        "stations": [
+            {
+                "climate_identifier": 2400300,
+                "start_date": "1950-07-01",
+                "end_date": "2006-10-02"
+            },
+            {
+                "climate_identifier": 2400305,
+                "start_date": "2006-10-03",
+                "end_date": "2021-10-03"
+            }
+        ]
+    },
+    {
+        "location": "eureka",
+        "stations": [
+            {
+                "climate_identifier": 2401199,
+                "start_date": "2016-02-25",
+                "end_date": "2021-09-23"
+            },
+            {
+                "climate_identifier": 2401200,
+                "start_date": "1947-05-01",
+                "end_date": "2016-02-24"
+            }
+        ]
+    },
+    {
+        "location": "cambridge bay",
+        "stations": [
+            {
+                "climate_identifier": 2400600,
+                "start_date": "1929-01-01",
+                "end_date": "2015-02-11"
+            },
+            {
+                "climate_identifier": 2400601,
+                "start_date": "2015-02-12",
+                "end_date": "2021-09-22"
+            }
+        ]
+    },
+    {
+        "location": "hall beach",
+        "stations": [
+            {
+                "climate_identifier": 2402350,
+                "start_date": "1957-01-01",
+                "end_date": "2014-12-31"
+            },
+            {
+                "climate_identifier": 2402354,
+                "start_date": "2015-01-01",
+                "end_date": "2021-09-23"
+            }
+        ]
+    },
+    {
+        "location": "inuvik",
+        "stations": [
+            {
+                "climate_identifier": 2202570,
+                "start_date": "1957-03-01",
+                "end_date": "2006-03-31"
+            }
+        ]
+    },
+    {
+        "location": "sachs harbour",
+        "stations": [
+            {
+                "climate_identifier": 2503648,
+                "start_date": "2013-11-01",
+                "end_date": "2021-09-23"
+            },
+            {
+                "climate_identifier": 2503650,
+                "start_date": "1955-11-01",
+                "end_date": "2013-10-31"
+            }
+        ]
+    },
+    {
+        "location": "cape-dyer",
+        "stations": [
+            {
+                "climate_identifier": 2400654,
+                "start_date": "1959-08-01",
+                "end_date": "1993-09-30"
+            }
+        ]
+    },
+    {
+        "location": "resolute bay",
+        "stations": [
+            {
+                "climate_identifier": 2403498,
+                "start_date": "2014-12-01",
+                "end_date": "2021-09-23"
+            },
+            {
+                "climate_identifier": 2403500,
+                "start_date": "1947-10-01",
+                "end_date": "2014-11-30"
+            }
+        ]
+    },
+    {
+        "location": "pond inlet",
+        "stations": [
+            {
+                "climate_identifier": 2403201,
+                "start_date": "1975-01-01",
+                "end_date": "2014-12-24"
+            }
+        ]
+    }
+]
