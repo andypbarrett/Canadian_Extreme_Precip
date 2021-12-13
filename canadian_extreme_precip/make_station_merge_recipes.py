@@ -4,6 +4,7 @@ dates used to combine station records'''
 from pathlib import Path
 import re
 import pprint
+import json
 
 import pandas as pd
 
@@ -94,7 +95,25 @@ def make_station_merge_recipes():
         tmp = {'location': station_name.lower(), 'stations': station}
         combine_recipes.append(tmp)
 
-    pprint.pprint(combine_recipes)
+    # Add Clyde River recipe - unable to extract this
+    clyde_river_recipe = {
+        'location': 'clyde river',
+        'stations': [
+            {
+                'climate_identifier': '2400800',
+                'start_date': '1933-09-01',
+                'end_date': '2008-07-28',
+            },
+            {
+                'climate_identifier': '2400802',
+                'start_date': '2008-07-29',
+                'end_date': '2021-12-05',
+            }
+        ]
+    }
+
+    with open('dataset_preparation/station_merge_recipe.json', 'w') as f:
+        f.write(json.dumps(combine_recipes, indent=4))
 
     return
 
