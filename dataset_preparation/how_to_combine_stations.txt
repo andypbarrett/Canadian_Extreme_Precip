@@ -1,0 +1,65 @@
+# How to Combine Station Records
+This file describes how individual station records are combined.  This is based on Mark Serreze's evaluation of the data.
+
+I extracted start and stop dates from files in From_Mark.  Notes from Marks files are in "".
+
+Alert
+A combination of two stations
+"Combines ALERT with ALERT CLIMATE,  Latter takes over,  station location shift when ALERT CLIMATE takes over"
+2400300            -62.280556  82.517778         ALERT   7/1/1950 0:00 10/2/2006 0:00
+2400305            -62.333333  82.500000 ALERT CLIMATE  10/3/2006 0:00 10/3/2021 0:00
+
+
+Eureka
+Combines records from two stations
+"Combines EUREKA A with EUREKA CLIMATE,  Latter takes over 2/25/2016, sligh change in station location."
+2401199            -85.933889  79.989167  EUREKA CLIMATE  2/25/2016 0:00  9/23/2021 0:00
+2401200            -85.933333  79.983333        EUREKA A   5/1/1947 0:00  2/24/2016 0:00
+
+
+Cambridge Bay
+"Combined two files both designated as  as CAMBRIDGE BAY A,   very small station location shift on 2015 2/12 ."
+2400600            -105.138333  69.108056  CAMBRIDGE BAY A   1/1/1929 0:00  2/11/2015 0:00
+2400601            -105.137222  69.108056  CAMBRIDGE BAY A  2/12/2015 0:00  9/22/2021 0:00
+
+
+Hall Beach
+"Combines 2 files:  Hall_Beach_Climate,  but  data recors  say its Hall Beach A, and file Hall Beach A,  which data records also  show as Hall Beach A.  Used Hall Beach Climate through 12/31/2012 "
+APB - I assume 12/31/2012 is a typo
+2402350            -81.2425  68.775833  HALL BEACH A  1/1/1957 0:00 12/31/2014 0:00
+2402354            -81.2425  68.775833  HALL BEACH A  1/1/2015 0:00  9/23/2021 0:00
+
+
+Inuvik
+"Data from one records only (INUVIK A),  several other Inuvik files  have piecemeal records"
+2202570            -133.482778  68.304167     INUVIK A  3/1/1957 0:00  3/31/2006 0:00
+
+
+Sachs Harbour
+"Combine CHACHS HARBOUR A with SACHS HARBOUR CLIMATES, Latter starts 11/1/2013, looks to have been a station shift. "
+2503648            -125.254167  71.9925  SACHS HARBOUR CLIMATE 11/1/2013 0:00  9/23/2021 0:00
+2503650            -125.266667  72.0000        SACHS HARBOUR A 11/1/1955 0:00 10/31/2013 0:00
+
+
+Cape-Dyer
+"Short record from a single station (CAPE DYER A), several other files had bits and pieces"
+2400654            -61.616667  66.583333  CAPE DYER A  8/1/1959 0:00  9/30/1993 0:00
+
+
+Resolute
+"Combnes  RESOLUTE CARS,  through 11/30 2014 with RESOLUTE BAY A thereafter  (2 files combed).   Not shift in station location."
+2403498            -94.969444  74.716944  RESOLUTE BAY A  12/1/2014 0:00  9/23/2021 0:00
+2403500            -94.969444  74.716944   RESOLUTE CARS  10/1/1947 0:00 11/30/2014 0:00  
+
+
+Pond Inlet
+File with POND INLET CLIMATE has some data doing back to 1922 through 1965.
+2403201            -77.968889  72.689444  POND INLET A  1/1/1975 0:00 12/24/2014 0:00
+
+
+Clyde River
+"Clyde_A longest, but ends 2008. Clyde_River_Climate picks up in 2004.   Also see
+Clyde_River_A.  I combined to get the best record, using Clyde_A as the base, looks like I used Clyde_River_Climate
+for the more recent years."
+2400800            -68.51666666666667  70.48611111111111  CLYDE A             1933-09-01 00:00:00 2008-07-28 00:00:00
+2400802            -68.51666666666667  70.48333333333333  CLYDE RIVER CLIMATE 2004-12-06 00:00:00 2021-12-05 00:00:00
