@@ -34,6 +34,8 @@ def get_filelist():
         station_name = ' '.join(station_name.split('_'))
         if station_name.endswith('.'):
             station_name = station_name[:-1]
+        if station_name.endswith(' A'):
+            station_name = station_name[:-2]
         data[station_name] = fp
     return data
 
