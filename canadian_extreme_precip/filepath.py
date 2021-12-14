@@ -1,6 +1,6 @@
 '''Contains filepaths for data etc'''
 
-from pathlib import PATH
+from pathlib import Path
 
 HOME = Path.home()
 
