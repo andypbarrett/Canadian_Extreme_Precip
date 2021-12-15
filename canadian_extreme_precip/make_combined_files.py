@@ -3,9 +3,11 @@ dataset_preparation/station_merge_recipe.json'''
 
 from pathlib import Path
 import json
-import pprint
+
+import pandas as pd
 
 from reader import read_station_file
+from filepath import raw_station_filepath
 
 MERGE_RECIPE_JSON = Path('/', 'home', 'apbarret', 'src', 'Canadian_extreme_precip', 'dataset_preparation', 'station_merge_recipe.json')
 
@@ -21,10 +23,9 @@ def combine_files(recipe):
     '''Combines station files'''
     df_list = []
     for station in recipe['stations']:
-        # Make filepath
-        # Subset by dates
-    # Merger dataframes
-    return
+        filepath = raw_station_filepath(station['climate_identifier'])
+        df_list.append(read_station_file(filepath)[station['start_date']:station['end_date']])
+    return pd.concat(df_list)
 
 
 def make_combined_files():
@@ -32,6 +33,7 @@ def make_combined_files():
     recipes = get_recipe()
 
     for recipe in recipes:
+        print(recipe['location'])
         combined_df = combine_files(recipe)
 
 
