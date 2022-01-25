@@ -13,23 +13,44 @@ from canadian_extreme_precip.filepath import raw_station_filepath
 
 MERGE_RECIPE_JSON = Path('/', 'home', 'apbarret', 'src', 'Canadian_extreme_precip', 'dataset_preparation', 'station_merge_recipe.json')
 
+XBEGIN = dt.datetime(1929,1,1)
+XEND = dt.datetime(2021,12,31)
 
-def plot_variable_time_series(df, variable_list=None):
+
+def plot_temperature_panel(ts, variable, ax=None):
+    '''Plot a temperature panel'''
+    ts.plot(ax=ax)
+    ax.set_xlim(XBEGIN, XEND)
+    ax.set_ylim(-50,30)
+    ax.axhline(0.)
+    ax.text(0.01, 0.85, variable, transform=ax.transAxes)
+
+    
+def plot_precipitation_panel(ts, variable, ax=None):
+    '''Plot a precipitation panel'''
+    ts.plot(ax=ax)
+    ax.set_xlim(XBEGIN, XEND)
+    ax.set_ylim(-50,30)
+    ax.axhline(0.)
+    ax.text(0.01, 0.85, variable, transform=ax.transAxes)
+
+    
+def plot_variable_time_series(df):
     '''Generates a plot of main variables for checking'''
 
-    if not variable_list:
-        variable_list = ['MEAN_TEMPERATURE', 'MIN_TEMPERATURE', 'MAX_TEMPERATURE',
+    variable_list = ['MEAN_TEMPERATURE', 'MIN_TEMPERATURE', 'MAX_TEMPERATURE',
                      'TOTAL_PRECIPITATION', 'TOTAL_RAIN', 'TOTAL_SNOW']
 
-    xbegin = dt.datetime(1929,1,1)
-    xend = dt.datetime(2021,12,31)
-    
     fig, ax = plt.subplots(6, 1, figsize=(15, 20))
-    for axes, var in zip(ax, variable_list):
-        df[var].plot(ax=axes)
-        axes.set_xlim(xbegin, xend)
-        axes.text(0.01, 0.85, var, transform=axes.transAxes)
 
+    plot_temperature_panel(df['MEAN_TEMPERATURE'], 'MEAN TEMPERATURE', ax=ax[0])
+    plot_temperature_panel(df['MIN_TEMPERATURE'], 'MIN TEMPERATURE', ax=ax[1])
+    plot_temperature_panel(df['MAX_TEMPERATURE'], 'MAX TEMPERATURE', ax=ax[2])
+    
+    plot_precipitation_panel(df['TOTAL_PRECIPITATION'], 'TOTAL PRECIPITATION', ax=ax[3])
+    plot_precipitation_panel(df['TOTAL_RAIN'], 'TOTAL RAIN', ax=ax[4])
+    plot_precipitation_panel(df['TOTAL_SNOW'], 'TOTAL_SNOW', ax=ax[5])
+    
     return fig, ax
 
 
