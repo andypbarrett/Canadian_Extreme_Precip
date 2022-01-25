@@ -3,7 +3,9 @@ dataset_preparation/station_merge_recipe.json'''
 
 from pathlib import Path
 import json
+import datetime as dt
 
+import matplotlib.pyplot as plt
 import pandas as pd
 
 from canadian_extreme_precip.reader import read_station_file
@@ -18,10 +20,14 @@ def plot_variable_time_series(df, variable_list=None):
     if not variables:
         variables = ['MEAN_TEMPERATURE', 'MIN_TEMPERATURE', 'MAX_TEMPERATURE',
                      'TOTAL_PRECIPITATION', 'TOTAL_RAIN', 'TOTAL_SNOW']
-        
+
+    xbegin = dt.datetime(1900,01,01)
+    xend = dt.datetime(2021,12,31)
+    
     fig, ax = plt.subplots(6, 1, figsize=(15, 20))
     for axes, var in zip(ax, variables):
         df[var].plot(ax=axes)
+        axes.set_xlim(xbegin, xend)
         axes.set_title(var)
 
     return fig, ax
