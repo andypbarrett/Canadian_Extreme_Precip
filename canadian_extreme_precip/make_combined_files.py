@@ -30,7 +30,7 @@ def plot_precipitation_panel(ts, variable, ax=None):
     '''Plot a precipitation panel'''
     ts.plot(ax=ax)
     ax.set_xlim(XBEGIN, XEND)
-    ax.set_ylim(-50,30)
+    ax.set_ylim(0,40)
     ax.axhline(0.)
     ax.text(0.01, 0.85, variable, transform=ax.transAxes)
 
