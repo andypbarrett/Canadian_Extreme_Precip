@@ -33,7 +33,7 @@ def plot_temperature_panel(ts, variable, ax=None, hide_xaxis=False):
     
 def plot_precipitation_panel(ts, variable, ax=None, hide_xaxis=False):
     '''Plot a precipitation panel'''
-    ts.plot(ax=ax)
+    ax.fill_between(ts.index, ts, step='pre', color='k')
     ax.set_xlim(XBEGIN, XEND)
     ax.set_ylim(0,50)
     ax.text(0.01, 0.85, variable, transform=ax.transAxes)
