@@ -38,9 +38,6 @@ def plot_precipitation_panel(ts, variable, ax=None):
 def plot_variable_time_series(df):
     '''Generates a plot of main variables for checking'''
 
-    variable_list = ['MEAN_TEMPERATURE', 'MIN_TEMPERATURE', 'MAX_TEMPERATURE',
-                     'TOTAL_PRECIPITATION', 'TOTAL_RAIN', 'TOTAL_SNOW']
-
     fig, ax = plt.subplots(6, 1, figsize=(15, 20))
 
     plot_temperature_panel(df['MEAN_TEMPERATURE'], 'MEAN TEMPERATURE', ax=ax[0])
