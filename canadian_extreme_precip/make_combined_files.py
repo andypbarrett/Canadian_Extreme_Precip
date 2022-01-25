@@ -21,7 +21,7 @@ def plot_variable_time_series(df, variable_list=None):
         variable_list = ['MEAN_TEMPERATURE', 'MIN_TEMPERATURE', 'MAX_TEMPERATURE',
                      'TOTAL_PRECIPITATION', 'TOTAL_RAIN', 'TOTAL_SNOW']
 
-    xbegin = dt.datetime(1900,1,1)
+    xbegin = dt.datetime(1929,1,1)
     xend = dt.datetime(2021,12,31)
     
     fig, ax = plt.subplots(6, 1, figsize=(15, 20))
