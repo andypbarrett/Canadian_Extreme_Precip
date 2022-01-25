@@ -28,7 +28,7 @@ def plot_variable_time_series(df, variable_list=None):
     for axes, var in zip(ax, variable_list):
         df[var].plot(ax=axes)
         axes.set_xlim(xbegin, xend)
-        axes.set_title(var)
+        axes.text(0.01, 0.85, var, transform=axes.transAxes)
 
     return fig, ax
 
