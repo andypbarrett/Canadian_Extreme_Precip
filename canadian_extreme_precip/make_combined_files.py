@@ -17,7 +17,7 @@ XBEGIN = dt.datetime(1929,1,1)
 XEND = dt.datetime(2021,12,31)
 
 
-def plot_temperature_panel(ts, variable, ax=None):
+def plot_temperature_panel(ts, variable, ax=None, hide_xaxis=False):
     '''Plot a temperature panel'''
     ts.plot(ax=ax)
     ax.set_xlim(XBEGIN, XEND)
@@ -25,27 +25,45 @@ def plot_temperature_panel(ts, variable, ax=None):
     ax.axhline(0., color='0.6', zorder=0)
     ax.text(0.01, 0.85, variable, transform=ax.transAxes)
 
+    if hide_xaxis:
+        ax.set_xticklabels([])
+        ax.set_xticks([])
+        ax.set_xlabel('')
+        
     
-def plot_precipitation_panel(ts, variable, ax=None):
+def plot_precipitation_panel(ts, variable, ax=None, hide_xaxis=False):
     '''Plot a precipitation panel'''
     ts.plot(ax=ax)
     ax.set_xlim(XBEGIN, XEND)
-    ax.set_ylim(0,40)
+    ax.set_ylim(0,50)
     ax.text(0.01, 0.85, variable, transform=ax.transAxes)
 
-    
+    if hide_xaxis:
+        ax.set_xticklabels([])
+        ax.set_xticks([])
+        ax.set_xlabel('')
+
+
 def plot_variable_time_series(df):
     '''Generates a plot of main variables for checking'''
 
     fig, ax = plt.subplots(6, 1, figsize=(15, 20))
 
-    plot_temperature_panel(df['MEAN_TEMPERATURE'], 'MEAN TEMPERATURE', ax=ax[0])
-    plot_temperature_panel(df['MIN_TEMPERATURE'], 'MIN TEMPERATURE', ax=ax[1])
-    plot_temperature_panel(df['MAX_TEMPERATURE'], 'MAX TEMPERATURE', ax=ax[2])
+    plot_temperature_panel(df['MEAN_TEMPERATURE'], 'MEAN TEMPERATURE',
+                           ax=ax[0], hide_xaxis=True)
+    plot_temperature_panel(df['MIN_TEMPERATURE'], 'MIN TEMPERATURE',
+                           ax=ax[1], hide_xaxis=True)
+    plot_temperature_panel(df['MAX_TEMPERATURE'], 'MAX TEMPERATURE',
+                           ax=ax[2], hide_xaxis=True)
     
-    plot_precipitation_panel(df['TOTAL_PRECIPITATION'], 'TOTAL PRECIPITATION', ax=ax[3])
-    plot_precipitation_panel(df['TOTAL_RAIN'], 'TOTAL RAIN', ax=ax[4])
-    plot_precipitation_panel(df['TOTAL_SNOW'], 'TOTAL_SNOW', ax=ax[5])
+    plot_precipitation_panel(df['TOTAL_PRECIPITATION'], 'TOTAL PRECIPITATION',
+                             ax=ax[3], hide_xaxis=True)
+    plot_precipitation_panel(df['TOTAL_RAIN'], 'TOTAL RAIN',
+                             ax=ax[4], hide_xaxis=True)
+    plot_precipitation_panel(df['TOTAL_SNOW'], 'TOTAL_SNOW',
+                             ax=ax[5])
+
+    fig.subplots_adjust(hspace=0.05)
     
     return fig, ax
 
