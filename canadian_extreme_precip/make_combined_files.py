@@ -86,6 +86,22 @@ def combine_files(recipe):
     return df
 
 
+def print_record_timerange(df):
+    '''Prints earliest and latest record for a dataframe to stdout'''
+    print(f'   Earliest: {df.index.min()}  Start: {df.iloc[0].name}')
+    print(f'   Latest: {df.index.max()}    End: {df.iloc[-1].name}')
+    return
+
+    
+def print_variable_flags(df):
+    '''Prints a unique list of variable flags to stdout'''
+    for var in VARIABLE_LIST:
+        var_flag = var + '_FLAG'
+        flags = [str(x) for x in df[var_flag].unique()]
+        print(f'   {var_flag}: {",".join(flags)}')
+    return
+
+
 def make_combined_files():
     '''Merges station files'''
     recipes = get_recipe()
@@ -93,12 +109,12 @@ def make_combined_files():
     for recipe in recipes:
         print(recipe['location'])
         combined_df = combine_files(recipe)
-        print(f'   Earliest: {combined_df.index.min()}  Start: {combined_df.iloc[0].name}')
-        print(f'   Latest: {combined_df.index.max()}    End: {combined_df.iloc[-1].name}')
+        print_record_timerange(combined_df)
+        print_variable_flags(combined_df)
         print('')
-        fig, ax = plot_variable_time_series(combined_df)
-        plt.show()
-        break
+        #fig, ax = plot_variable_time_series(combined_df)
+        #plt.show()
+        #break
 
 
 if __name__ == "__main__":
