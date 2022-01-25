@@ -40,7 +40,9 @@ def combine_files(recipe):
     for station in recipe['stations']:
         filepath = raw_station_filepath(station['climate_identifier'])
         df_list.append(read_station_file(filepath)[station['start_date']:station['end_date']])
-    return pd.concat(df_list)
+    df = pd.concat(df_list)
+    df = df.sort_index()
+    return df
 
 
 def make_combined_files():
