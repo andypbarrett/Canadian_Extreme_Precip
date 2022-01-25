@@ -61,6 +61,9 @@ def make_combined_files():
         print(f'   Earliest: {combined_df.index.min()}  Start: {combined_df.iloc[0].name}')
         print(f'   Latest: {combined_df.index.max()}    End: {combined_df.iloc[-1].name}')
         print('')
+        fig, ax = plot_variable_time_series(combined_df)
+        plt.show()
+        break
 
 
 if __name__ == "__main__":
