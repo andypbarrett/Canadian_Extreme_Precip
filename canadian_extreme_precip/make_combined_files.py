@@ -17,15 +17,15 @@ MERGE_RECIPE_JSON = Path('/', 'home', 'apbarret', 'src', 'Canadian_extreme_preci
 def plot_variable_time_series(df, variable_list=None):
     '''Generates a plot of main variables for checking'''
 
-    if not variables:
-        variables = ['MEAN_TEMPERATURE', 'MIN_TEMPERATURE', 'MAX_TEMPERATURE',
+    if not variable_list:
+        variable_list = ['MEAN_TEMPERATURE', 'MIN_TEMPERATURE', 'MAX_TEMPERATURE',
                      'TOTAL_PRECIPITATION', 'TOTAL_RAIN', 'TOTAL_SNOW']
 
-    xbegin = dt.datetime(1900,01,01)
+    xbegin = dt.datetime(1900,1,1)
     xend = dt.datetime(2021,12,31)
     
     fig, ax = plt.subplots(6, 1, figsize=(15, 20))
-    for axes, var in zip(ax, variables):
+    for axes, var in zip(ax, variable_list):
         df[var].plot(ax=axes)
         axes.set_xlim(xbegin, xend)
         axes.set_title(var)
