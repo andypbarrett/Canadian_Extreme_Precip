@@ -16,6 +16,16 @@ MERGE_RECIPE_JSON = Path('/', 'home', 'apbarret', 'src', 'Canadian_extreme_preci
 XBEGIN = dt.datetime(1929,1,1)
 XEND = dt.datetime(2021,12,31)
 
+VARIABLE_LIST = [
+    'MEAN_TEMPERATURE',
+    'MIN_TEMPERATURE',
+    'MAX_TEMPERATURE',
+    'TOTAL_PRECIPITATION',
+    'TOTAL_RAIN',
+    'TOTAL_SNOW',
+    'SNOW_ON_GROUND',
+    ]
+
 
 def plot_temperature_panel(ts, variable, ax=None, hide_xaxis=False):
     '''Plot a temperature panel'''
