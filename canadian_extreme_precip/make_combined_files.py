@@ -6,10 +6,25 @@ import json
 
 import pandas as pd
 
-from reader import read_station_file
-from filepath import raw_station_filepath
+from canadian_extreme_precip.reader import read_station_file
+from canadian_extreme_precip.filepath import raw_station_filepath
 
 MERGE_RECIPE_JSON = Path('/', 'home', 'apbarret', 'src', 'Canadian_extreme_precip', 'dataset_preparation', 'station_merge_recipe.json')
+
+
+def plot_variable_time_series(df, variable_list=None):
+    '''Generates a plot of main variables for checking'''
+
+    if not variables:
+        variables = ['MEAN_TEMPERATURE', 'MIN_TEMPERATURE', 'MAX_TEMPERATURE',
+                     'TOTAL_PRECIPITATION', 'TOTAL_RAIN', 'TOTAL_SNOW']
+        
+    fig, ax = plt.subplots(6, 1, figsize=(15, 20))
+    for axes, var in zip(ax, variables):
+        df[var].plot(ax=axes)
+        axes.set_title(var)
+
+    return fig, ax
 
 
 def get_recipe():
@@ -35,6 +50,9 @@ def make_combined_files():
     for recipe in recipes:
         print(recipe['location'])
         combined_df = combine_files(recipe)
+        print(f'   Earliest: {combined_df.index.min()}  Start: {combined_df.iloc[0].name}')
+        print(f'   Latest: {combined_df.index.max()}    End: {combined_df.iloc[-1].name}')
+        print('')
 
 
 if __name__ == "__main__":
