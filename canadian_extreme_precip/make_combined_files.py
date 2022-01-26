@@ -27,13 +27,14 @@ VARIABLE_LIST = [
     ]
 
 
-def plot_temperature_panel(ts, variable, ax=None, hide_xaxis=False):
+def plot_temperature_panel(df, variable, ax=None, hide_xaxis=False):
     '''Plot a temperature panel'''
-    ts.plot(ax=ax)
+    df[variable].plot(ax=ax)
     ax.set_xlim(XBEGIN, XEND)
     ax.set_ylim(-50,30)
     ax.axhline(0., color='0.6', zorder=0)
-    ax.text(0.01, 0.85, variable, transform=ax.transAxes)
+    ax.text(0.01, 0.85, ' '.join(variable.split('_')),
+            transform=ax.transAxes)
 
     if hide_xaxis:
         ax.set_xticklabels([])
@@ -41,12 +42,13 @@ def plot_temperature_panel(ts, variable, ax=None, hide_xaxis=False):
         ax.set_xlabel('')
         
     
-def plot_precipitation_panel(ts, variable, ax=None, hide_xaxis=False):
+def plot_precipitation_panel(df, variable, ax=None, hide_xaxis=False):
     '''Plot a precipitation panel'''
-    ax.fill_between(ts.index, ts, step='pre', color='k')
+    ax.fill_between(df.index, df[variable], step='pre', color='k')
     ax.set_xlim(XBEGIN, XEND)
     ax.set_ylim(0,50)
-    ax.text(0.01, 0.85, variable, transform=ax.transAxes)
+    ax.text(0.01, 0.85, ' '.join(variable.split('_')),
+            transform=ax.transAxes)
 
     if hide_xaxis:
         ax.set_xticklabels([])
@@ -59,18 +61,18 @@ def plot_variable_time_series(df):
 
     fig, ax = plt.subplots(6, 1, figsize=(15, 20))
 
-    plot_temperature_panel(df['MEAN_TEMPERATURE'], 'MEAN TEMPERATURE',
+    plot_temperature_panel(df, 'MEAN_TEMPERATURE', 
                            ax=ax[0], hide_xaxis=True)
-    plot_temperature_panel(df['MIN_TEMPERATURE'], 'MIN TEMPERATURE',
+    plot_temperature_panel(df, 'MIN_TEMPERATURE', 
                            ax=ax[1], hide_xaxis=True)
-    plot_temperature_panel(df['MAX_TEMPERATURE'], 'MAX TEMPERATURE',
+    plot_temperature_panel(df, 'MAX_TEMPERATURE',
                            ax=ax[2], hide_xaxis=True)
     
-    plot_precipitation_panel(df['TOTAL_PRECIPITATION'], 'TOTAL PRECIPITATION',
+    plot_precipitation_panel(df, 'TOTAL_PRECIPITATION', 
                              ax=ax[3], hide_xaxis=True)
-    plot_precipitation_panel(df['TOTAL_RAIN'], 'TOTAL RAIN',
+    plot_precipitation_panel(df, 'TOTAL_RAIN', 
                              ax=ax[4], hide_xaxis=True)
-    plot_precipitation_panel(df['TOTAL_SNOW'], 'TOTAL_SNOW',
+    plot_precipitation_panel(df, 'TOTAL_SNOW', 
                              ax=ax[5])
 
     fig.subplots_adjust(hspace=0.05)
@@ -119,12 +121,12 @@ def make_combined_files():
     for recipe in recipes:
         print(recipe['location'])
         combined_df = combine_files(recipe)
-        print_record_timerange(combined_df)
-        print_variable_flags(combined_df)
-        print('')
-        #fig, ax = plot_variable_time_series(combined_df)
-        #plt.show()
-        #break
+        #print_record_timerange(combined_df)
+        #print_variable_flags(combined_df)
+        #print('')
+        fig, ax = plot_variable_time_series(combined_df)
+        plt.show()
+        break
 
 
 if __name__ == "__main__":
