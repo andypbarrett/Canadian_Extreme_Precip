@@ -142,7 +142,7 @@ def make_combined_files():
         #print_record_timerange(combined_df)
         #print_variable_flags(combined_df)
         #print('')
-        fig, ax = plot_variable_time_series(combined_df)
+        fig, ax = plot_variable_time_series(combined_df, recipe['location'].upper())
         plt.show()
         break
 
