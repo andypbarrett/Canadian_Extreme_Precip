@@ -123,7 +123,7 @@ def plot_variable_time_series(df, station):
     
     fig.subplots_adjust(hspace=0.05)
 
-    fig.suptitle(station)
+    fig.suptitle(station, x=0.5, y=0.9)
     
     return fig, ax
 
