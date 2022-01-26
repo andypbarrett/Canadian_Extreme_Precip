@@ -31,11 +31,21 @@ def plot_temperature_panel(df, variable, ax=None, hide_xaxis=False):
     '''Plot a temperature panel'''
     df[variable].plot(ax=ax)
     ax.set_xlim(XBEGIN, XEND)
-    ax.set_ylim(-50,30)
+    ax.set_ylim(-55,30)
     ax.axhline(0., color='0.6', zorder=0)
     ax.text(0.01, 0.85, ' '.join(variable.split('_')),
             transform=ax.transAxes)
 
+    # Plot flags
+    temp_flags = ['M', 'Y', 'N']
+    flag_colors = ['k', 'r', 'y']
+    for color, flag in zip(flag_colors, temp_flags):
+        x = df[df[variable+'_FLAG'] == flag].index
+        y = [-52]*len(x)
+        ax.scatter(x, y, marker='.', c=color, label=flag)
+
+    #ax.legend()
+    
     if hide_xaxis:
         ax.set_xticklabels([])
         ax.set_xticks([])
@@ -46,10 +56,18 @@ def plot_precipitation_panel(df, variable, ax=None, hide_xaxis=False):
     '''Plot a precipitation panel'''
     ax.fill_between(df.index, df[variable], step='pre', color='k')
     ax.set_xlim(XBEGIN, XEND)
-    ax.set_ylim(0,50)
+    ax.set_ylim(-5,50)
     ax.text(0.01, 0.85, ' '.join(variable.split('_')),
             transform=ax.transAxes)
 
+    # Plot flags
+    precip_flags = ['T', 'M', 'L', 'C']
+    flag_colors = ['b', 'k', 'y', 'g']
+    for color, flag in zip(flag_colors, precip_flags):
+        x = df[df[variable+'_FLAG'] == flag].index
+        y = [-5]*len(x)
+        ax.scatter(x, y, marker='.', c=color, label=flag)
+    
     if hide_xaxis:
         ax.set_xticklabels([])
         ax.set_xticks([])
