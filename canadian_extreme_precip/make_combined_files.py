@@ -52,6 +52,31 @@ def plot_temperature_panel(df, variable, ax=None, hide_xaxis=False):
         ax.set_xlabel('')
         
     
+def plot_snowdepth_panel(df, variable, ax=None, hide_xaxis=False):
+    '''Plot a snow depth panel'''
+    df[variable].plot(ax=ax)
+    ax.set_xlim(XBEGIN, XEND)
+    ax.set_ylim(-10,100.)
+    ax.axhline(0., color='0.6', zorder=0)
+    ax.text(0.01, 0.85, ' '.join(variable.split('_')),
+            transform=ax.transAxes)
+
+    # Plot flags
+    temp_flags = ['M', 'Y', 'N']
+    flag_colors = ['k', 'r', 'y']
+    for color, flag in zip(flag_colors, temp_flags):
+        x = df[df[variable+'_FLAG'] == flag].index
+        y = [-5]*len(x)
+        ax.scatter(x, y, marker='.', c=color, label=flag)
+
+    #ax.legend()
+    
+    if hide_xaxis:
+        ax.set_xticklabels([])
+        ax.set_xticks([])
+        ax.set_xlabel('')
+        
+    
 def plot_precipitation_panel(df, variable, ax=None, hide_xaxis=False):
     '''Plot a precipitation panel'''
     ax.fill_between(df.index, df[variable], step='pre', color='k')
@@ -74,10 +99,10 @@ def plot_precipitation_panel(df, variable, ax=None, hide_xaxis=False):
         ax.set_xlabel('')
 
 
-def plot_variable_time_series(df):
+def plot_variable_time_series(df, station):
     '''Generates a plot of main variables for checking'''
 
-    fig, ax = plt.subplots(6, 1, figsize=(15, 20))
+    fig, ax = plt.subplots(7, 1, figsize=(15, 20))
 
     plot_temperature_panel(df, 'MEAN_TEMPERATURE', 
                            ax=ax[0], hide_xaxis=True)
@@ -91,9 +116,14 @@ def plot_variable_time_series(df):
     plot_precipitation_panel(df, 'TOTAL_RAIN', 
                              ax=ax[4], hide_xaxis=True)
     plot_precipitation_panel(df, 'TOTAL_SNOW', 
-                             ax=ax[5])
+                             ax=ax[5], hide_xaxis=True)
 
+    plot_snowdepth_panel(df, 'SNOW_ON_GROUND',
+                         ax=ax[6])
+    
     fig.subplots_adjust(hspace=0.05)
+
+    fig.suptitle(station)
     
     return fig, ax
 
