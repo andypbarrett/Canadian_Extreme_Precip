@@ -63,15 +63,18 @@ def plot_snowdepth_panel(df, variable, ax=None, hide_xaxis=False):
             transform=ax.transAxes)
 
     # Plot flags
+    temp_labels = {
+        'M': 'Missing',
+        'Y': 'Missing but < 0',
+        'N': 'Missing byt > 0',
+        }
     temp_flags = ['M', 'Y', 'N']
     flag_colors = ['k', 'r', 'y']
     for color, flag in zip(flag_colors, temp_flags):
         x = df[df[variable+'_FLAG'] == flag].index
         y = [-5]*len(x)
-        ax.scatter(x, y, marker='.', c=color, label=flag)
+        ax.scatter(x, y, marker='.', c=color, label=temp_labels[flag])
 
-    #ax.legend()
-    
     if hide_xaxis:
         ax.set_xticklabels([])
         ax.set_xticks([])
@@ -131,6 +134,7 @@ def plot_variable_time_series(df, station):
                          ax=ax[6])
     
 
+    ax[1].legend(loc='lower left', fontsize=8)
     ax[3].legend(loc='lower left', fontsize=8)
     
     fig.subplots_adjust(hspace=0.05)
@@ -212,7 +216,7 @@ def make_combined_files(save_merged_file=True, outdir=None, plot_dir='.',
         else:
             plt.show()
 
-        #break
+        break
 
 
 if __name__ == "__main__":
