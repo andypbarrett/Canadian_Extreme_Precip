@@ -48,7 +48,8 @@ def plot_temperature_panel(df, variable, ax=None, hide_xaxis=False):
     for color, flag in zip(flag_colors, temp_flags):
         x = df[df[variable+'_FLAG'] == flag].index
         y = [-52]*len(x)
-        ax.scatter(x, y, marker='+', c=color, label=temp_labels[flag])
+        if len(x) > 0:
+            ax.scatter(x, y, marker='+', c=color, label=temp_labels[flag])
 
     if hide_xaxis:
         ax.set_xticklabels([])
@@ -105,7 +106,8 @@ def plot_precipitation_panel(df, variable, ax=None, hide_xaxis=False):
     for color, flag in zip(flag_colors, precip_flags):
         x = df[df[variable+'_FLAG'] == flag].index
         y = [-5]*len(x)
-        ax.scatter(x, y, marker='+', c=color, label=precip_labels[flag])
+        if len(x) > 0:
+            ax.scatter(x, y, marker='+', c=color, label=precip_labels[flag])
 
     #ax.legend()
     
