@@ -182,7 +182,7 @@ def make_combined_files(outdir='.', verbose=False, make_plot=False, save_plot=Fa
 
         fig, ax = plot_variable_time_series(combined_df, recipe['location'].upper())
 
-        outfile = make_png_filename(recipe["location"])
+        outfile = make_png_filename(recipe["location"], outdir=outdir)
         if verbose: print(f'Saving figure to {outfile}')
         
         #fig.savefig(outfile)
