@@ -66,17 +66,17 @@ def plot_snowdepth_panel(df, variable, ax=None, hide_xaxis=False):
             transform=ax.transAxes)
 
     # Plot flags
-    temp_labels = {
+    snow_labels = {
         'M': 'Missing',
         'Y': 'Missing but < 0',
         'N': 'Missing byt > 0',
         }
-    temp_flags = ['M', 'Y', 'N']
+    snow_flags = ['M', 'Y', 'N']
     flag_colors = ['k', 'r', 'y']
-    for color, flag in zip(flag_colors, temp_flags):
+    for color, flag in zip(flag_colors, snow_flags):
         x = df[df[variable+'_FLAG'] == flag].index
         y = [-5]*len(x)
-        ax.scatter(x, y, marker='.', c=color, label=temp_labels[flag])
+        ax.scatter(x, y, marker='+', c=color, label=snow_labels[flag])
 
     if hide_xaxis:
         ax.set_xticklabels([])
