@@ -201,7 +201,7 @@ def make_combined_files(save_merged_file=True, outdir=None, plot_dir='.',
         else:
             plt.show()
 
-        break
+        #break
 
 
 if __name__ == "__main__":
