@@ -6,6 +6,7 @@ import json
 import datetime as dt
 import re
 
+import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
@@ -14,7 +15,7 @@ from canadian_extreme_precip.filepath import raw_station_filepath
 
 MERGE_RECIPE_JSON = Path('/', 'home', 'apbarret', 'src', 'Canadian_extreme_precip', 'dataset_preparation', 'station_merge_recipe.json')
 
-XBEGIN = dt.datetime(1929,1,1)
+XBEGIN = dt.datetime(1920,1,1)
 XEND = dt.datetime(2021,12,31)
 
 VARIABLE_LIST = [
@@ -66,9 +67,10 @@ def plot_temperature_panel(df, variable, ax=None, hide_xaxis=False,
 def plot_snowdepth_panel(df, variable, ax=None, hide_xaxis=False,
                          add_legend=True):
     '''Plot a snow depth panel'''
+    max_depth = np.ceil(df[variable].max() * .1) * 10.
     df[variable].plot(ax=ax)
     ax.set_xlim(XBEGIN, XEND)
-    ax.set_ylim(-10,100.)
+    ax.set_ylim(-.1*max_depth, max_depth)
     ax.axhline(0., color='0.6', zorder=0)
     ax.text(0.01, 0.85, ' '.join(variable.split('_')),
             transform=ax.transAxes)
@@ -98,11 +100,14 @@ def plot_snowdepth_panel(df, variable, ax=None, hide_xaxis=False,
         ax.set_xlabel('')
         
     
-def plot_precipitation_panel(df, variable, ax=None, hide_xaxis=False):
+def plot_precipitation_panel(df, variable, ax=None, hide_xaxis=False,
+                             add_legend=True):
     '''Plot a precipitation panel'''
+    ymax = np.ceil(df[variable].max() * .1) * 10.
+    ymin = -.15 * ymax
     ax.fill_between(df.index, df[variable], step='pre', color='k')
     ax.set_xlim(XBEGIN, XEND)
-    ax.set_ylim(-10,50)
+    ax.set_ylim(ymin, ymax)
     ax.axhline(0., color='0.6', zorder=0)
     ax.text(0.01, 0.85, ' '.join(variable.split('_')),
             transform=ax.transAxes)
@@ -118,7 +123,7 @@ def plot_precipitation_panel(df, variable, ax=None, hide_xaxis=False):
     flag_colors = ['b', 'k', 'y', 'g']
     for color, flag in zip(flag_colors, precip_flags):
         x = df[df[variable+'_FLAG'] == flag].index
-        y = [-5]*len(x)
+        y = [ymin*.5]*len(x)
         if len(x) > 0:
             ax.scatter(x, y, marker='+', c=color, label=precip_labels[flag])
 
@@ -231,8 +236,6 @@ def make_combined_files(save_merged_file=True, outdir=None, plot_dir='.',
             fig.savefig(outfile)
         else:
             plt.show()
-
-        break
 
 
 if __name__ == "__main__":
