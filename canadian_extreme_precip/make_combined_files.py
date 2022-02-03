@@ -63,7 +63,8 @@ def plot_temperature_panel(df, variable, ax=None, hide_xaxis=False,
         ax.set_xlabel('')
         
     
-def plot_snowdepth_panel(df, variable, ax=None, hide_xaxis=False):
+def plot_snowdepth_panel(df, variable, ax=None, hide_xaxis=False,
+                         add_legend=True):
     '''Plot a snow depth panel'''
     df[variable].plot(ax=ax)
     ax.set_xlim(XBEGIN, XEND)
@@ -86,6 +87,11 @@ def plot_snowdepth_panel(df, variable, ax=None, hide_xaxis=False):
         if len(x) > 0:
             ax.scatter(x, y, marker='+', c=color, label=snow_labels[flag])
 
+    if add_legend:
+        thandles, tlabels = ax.get_legend_handles_labels()  # needed to drop line label
+        ax.legend(thandles[1:], tlabels[1:],
+                  loc='lower left', fontsize=8)
+    
     if hide_xaxis:
         ax.set_xticklabels([])
         ax.set_xticks([])
@@ -147,10 +153,6 @@ def plot_variable_time_series(df, station):
                          ax=ax[6])
     
     ax[3].legend(loc='lower left', fontsize=8)
-    thandles, tlabels = ax[6].get_legend_handles_labels()  # needed to drop line label
-    ax[6].legend(thandles[1:], tlabels[1:],
-                 loc='lower left', fontsize=8)
-    
     fig.subplots_adjust(hspace=0.05)
 
     fig.suptitle(station, x=0.5, y=0.9)
