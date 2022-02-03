@@ -169,12 +169,12 @@ def make_png_filename(location, outdir='.'):
     return this_path / f'{loc_name}.variable.time_series.png'
     
 
-def make_combined_files(verbose=False, make_plot=False, save_plot=False):
+def make_combined_files(outdir='.', verbose=False, make_plot=False, save_plot=False):
     '''Merges station files'''
     recipes = get_recipe()
 
     for recipe in recipes:
-        if verbose: print(f'Combining files for {recipe['location']}')
+        if verbose: print(f'Combining files for {recipe["location"]}')
         combined_df = combine_files(recipe)
         #print_record_timerange(combined_df)
         #print_variable_flags(combined_df)
