@@ -87,12 +87,20 @@ def plot_precipitation_panel(df, variable, ax=None, hide_xaxis=False):
             transform=ax.transAxes)
 
     # Plot flags
+    precip_labels = {
+        'T': 'Trace',
+        'M': 'Missing',
+        'L': 'Occurrence uncertain',
+        'C': 'Amount uncertain',
+        }
     precip_flags = ['T', 'M', 'L', 'C']
     flag_colors = ['b', 'k', 'y', 'g']
     for color, flag in zip(flag_colors, precip_flags):
         x = df[df[variable+'_FLAG'] == flag].index
         y = [-5]*len(x)
-        ax.scatter(x, y, marker='+', c=color, label=flag)
+        ax.scatter(x, y, marker='+', c=color, label=precip_labels[flag])
+
+    #ax.legend()
     
     if hide_xaxis:
         ax.set_xticklabels([])
@@ -121,6 +129,9 @@ def plot_variable_time_series(df, station):
 
     plot_snowdepth_panel(df, 'SNOW_ON_GROUND',
                          ax=ax[6])
+    
+
+    ax[3].legend(loc='lower left', fontsize=8)
     
     fig.subplots_adjust(hspace=0.05)
 
