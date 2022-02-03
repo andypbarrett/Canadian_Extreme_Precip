@@ -133,8 +133,9 @@ def plot_variable_time_series(df, station):
     plot_snowdepth_panel(df, 'SNOW_ON_GROUND',
                          ax=ax[6])
     
-
-    ax[1].legend(loc='lower left', fontsize=8)
+    thandles, tlabels = ax[0].get_legend_handles_labels()  # needed to drop line label
+    ax[0].legend(thandles[1:], tlabels[1:],
+                 loc='lower left', fontsize=8)
     ax[3].legend(loc='lower left', fontsize=8)
     
     fig.subplots_adjust(hspace=0.05)
