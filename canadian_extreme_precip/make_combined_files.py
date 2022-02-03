@@ -231,12 +231,10 @@ def make_combined_files(save_merged_file=True, outdir='.', plot_dir='.',
         if verbose: print(f'Combining files for {recipe["location"]}')
         combined_df = combine_files(recipe)
 
-        csv_outfile = make_csv_filename(recipe['location'], outdir)
-        if verbose: print('Writing combined file to {csv_outfile}')
-        combined_df.to_csv(csv_outfile, sep=',')
-        #print_record_timerange(combined_df)
-        #print_variable_flags(combined_df)
-        #print('')
+        if save_merged_file:
+            csv_outfile = make_csv_filename(recipe['location'], outdir)
+            if verbose: print(f'Writing combined file to {csv_outfile}')
+            combined_df.to_csv(csv_outfile, sep=',')
 
         if make_plot:
             fig, ax = plot_variable_time_series(combined_df, recipe['location'].upper())
