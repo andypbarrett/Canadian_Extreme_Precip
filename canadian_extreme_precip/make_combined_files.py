@@ -91,6 +91,7 @@ def plot_precipitation_panel(df, variable, ax=None, hide_xaxis=False):
     ax.fill_between(df.index, df[variable], step='pre', color='k')
     ax.set_xlim(XBEGIN, XEND)
     ax.set_ylim(-10,50)
+    ax.axhline(0., color='0.6', zorder=0)
     ax.text(0.01, 0.85, ' '.join(variable.split('_')),
             transform=ax.transAxes)
 
