@@ -4,6 +4,7 @@ dataset_preparation/station_merge_recipe.json'''
 from pathlib import Path
 import json
 import datetime as dt
+import re
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -162,6 +163,11 @@ def print_variable_flags(df):
     return
 
 
+def make_png_filename(location):
+    loc_name = '_'.join(re.split('-|\s', location))
+    return f'{loc_name}.variable.time_series.png'
+    
+
 def make_combined_files():
     '''Merges station files'''
     recipes = get_recipe()
@@ -173,8 +179,12 @@ def make_combined_files():
         #print_variable_flags(combined_df)
         #print('')
         fig, ax = plot_variable_time_series(combined_df, recipe['location'].upper())
-        plt.show()
-        break
+
+        outfile = make_png_filename(recipe["location"])
+        print(outfile)
+        #fig.savefig(outfile)
+
+        #break
 
 
 if __name__ == "__main__":
