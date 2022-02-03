@@ -221,7 +221,8 @@ def make_csv_filename(location, outdir='.'):
     
 
 def make_combined_files(save_merged_file=True, outdir='.', plot_dir='.',
-                        verbose=False, make_plot=False, save_plot=False):
+                        verbose=False, make_plot=False, save_plot=False,
+                        no_reindex_dataframe=False):
     '''Merges station files according to recipes
 
     :save_merged_file: Save combined file (default True).  Set to False
