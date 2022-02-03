@@ -82,7 +82,7 @@ def plot_precipitation_panel(df, variable, ax=None, hide_xaxis=False):
     '''Plot a precipitation panel'''
     ax.fill_between(df.index, df[variable], step='pre', color='k')
     ax.set_xlim(XBEGIN, XEND)
-    ax.set_ylim(-5,50)
+    ax.set_ylim(-10,50)
     ax.text(0.01, 0.85, ' '.join(variable.split('_')),
             transform=ax.transAxes)
 
@@ -92,7 +92,7 @@ def plot_precipitation_panel(df, variable, ax=None, hide_xaxis=False):
     for color, flag in zip(flag_colors, precip_flags):
         x = df[df[variable+'_FLAG'] == flag].index
         y = [-5]*len(x)
-        ax.scatter(x, y, marker='.', c=color, label=flag)
+        ax.scatter(x, y, marker='+', c=color, label=flag)
     
     if hide_xaxis:
         ax.set_xticklabels([])
