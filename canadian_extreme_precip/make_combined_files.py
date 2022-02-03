@@ -169,8 +169,19 @@ def make_png_filename(location, outdir='.'):
     return this_path / f'{loc_name}.variable.time_series.png'
     
 
-def make_combined_files(outdir='.', verbose=False, make_plot=False, save_plot=False):
-    '''Merges station files'''
+def make_combined_files(save_merged_file=True, outdir=None, plot_dir='.',
+                        verbose=False, make_plot=False, save_plot=False):
+    '''Merges station files according to recipes
+
+    :save_merged_file: Save combined file (default True).  Set to False
+                       if you just want to check plots before creating merged file
+    :outdir: output directory for data files
+    :plot_dir: output directory for plots (default cwd)
+    :make_plot: creates plot of temperature and precipitation variables (default False)
+    :save_plot: save plot of key variables (default False).  If False image is displayed
+                window.
+    :verbose: write progress messages to stdout
+    '''
     recipes = get_recipe()
 
     for recipe in recipes:
@@ -184,7 +195,7 @@ def make_combined_files(outdir='.', verbose=False, make_plot=False, save_plot=Fa
             fig, ax = plot_variable_time_series(combined_df, recipe['location'].upper())
 
         if save_plot:
-            outfile = make_png_filename(recipe["location"], outdir=outdir)
+            outfile = make_png_filename(recipe["location"], outdir=plot_dir)
             if verbose: print(f'Saving figure to {outfile}')
             fig.savefig(outfile)
         else:
