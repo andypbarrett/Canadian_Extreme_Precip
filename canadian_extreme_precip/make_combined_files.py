@@ -163,9 +163,10 @@ def print_variable_flags(df):
     return
 
 
-def make_png_filename(location):
+def make_png_filename(location, outdir='.'):
+    this_path = Path(outdir)
     loc_name = '_'.join(re.split('-|\s', location))
-    return f'{loc_name}.variable.time_series.png'
+    return this_path / f'{loc_name}.variable.time_series.png'
     
 
 def make_combined_files():
