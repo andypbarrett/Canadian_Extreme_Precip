@@ -140,6 +140,9 @@ def plot_variable_time_series(df, station):
     ax[0].legend(thandles[1:], tlabels[1:],
                  loc='lower left', fontsize=8)
     ax[3].legend(loc='lower left', fontsize=8)
+    thandles, tlabels = ax[6].get_legend_handles_labels()  # needed to drop line label
+    ax[6].legend(thandles[1:], tlabels[1:],
+                 loc='lower left', fontsize=8)
     
     fig.subplots_adjust(hspace=0.05)
 
