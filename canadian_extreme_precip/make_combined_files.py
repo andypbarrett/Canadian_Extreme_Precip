@@ -169,7 +169,7 @@ def make_png_filename(location, outdir='.'):
     return this_path / f'{loc_name}.variable.time_series.png'
     
 
-def make_combined_files():
+def make_combined_files(verbose=False):
     '''Merges station files'''
     recipes = get_recipe()
 
