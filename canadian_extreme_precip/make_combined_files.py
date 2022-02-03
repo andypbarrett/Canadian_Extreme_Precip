@@ -122,7 +122,8 @@ def plot_precipitation_panel(df, variable, ax=None, hide_xaxis=False):
         if len(x) > 0:
             ax.scatter(x, y, marker='+', c=color, label=precip_labels[flag])
 
-    #ax.legend()
+    if add_legend:
+        ax.legend(loc='lower left', fontsize=8)
     
     if hide_xaxis:
         ax.set_xticklabels([])
@@ -152,7 +153,6 @@ def plot_variable_time_series(df, station):
     plot_snowdepth_panel(df, 'SNOW_ON_GROUND',
                          ax=ax[6])
     
-    ax[3].legend(loc='lower left', fontsize=8)
     fig.subplots_adjust(hspace=0.05)
 
     fig.suptitle(station, x=0.5, y=0.9)
