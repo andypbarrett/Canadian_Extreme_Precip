@@ -76,7 +76,8 @@ def plot_snowdepth_panel(df, variable, ax=None, hide_xaxis=False):
     for color, flag in zip(flag_colors, snow_flags):
         x = df[df[variable+'_FLAG'] == flag].index
         y = [-5]*len(x)
-        ax.scatter(x, y, marker='+', c=color, label=snow_labels[flag])
+        if len(x) > 0:
+            ax.scatter(x, y, marker='+', c=color, label=snow_labels[flag])
 
     if hide_xaxis:
         ax.set_xticklabels([])
