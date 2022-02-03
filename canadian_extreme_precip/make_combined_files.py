@@ -241,12 +241,14 @@ def make_combined_files(save_merged_file=True, outdir='.', plot_dir='.',
         if make_plot:
             fig, ax = plot_variable_time_series(combined_df, recipe['location'].upper())
 
-        if save_plot:
+        if make_plot & save_plot:
             outfile = make_png_filename(recipe["location"], outdir=plot_dir)
             if verbose: print(f'Saving figure to {outfile}')
             fig.savefig(outfile)
         else:
             plt.show()
+
+        break
 
 
 if __name__ == "__main__":
