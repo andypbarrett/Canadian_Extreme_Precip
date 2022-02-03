@@ -206,7 +206,13 @@ def make_png_filename(location, outdir='.'):
     return this_path / f'{loc_name}.variable.time_series.png'
     
 
-def make_combined_files(save_merged_file=True, outdir=None, plot_dir='.',
+def make_csv_filename(location, outdir='.'):
+    this_path = Path(outdir)
+    loc_name = '_'.join(re.split('-|\s', location))
+    return this_path / f'{loc_name}.combined.csv'
+    
+
+def make_combined_files(save_merged_file=True, outdir='.', plot_dir='.',
                         verbose=False, make_plot=False, save_plot=False):
     '''Merges station files according to recipes
 
@@ -224,6 +230,10 @@ def make_combined_files(save_merged_file=True, outdir=None, plot_dir='.',
     for recipe in recipes:
         if verbose: print(f'Combining files for {recipe["location"]}')
         combined_df = combine_files(recipe)
+
+        csv_outfile = make_csv_filename(recipe['location'], outdir)
+        if verbose: print('Writing combined file to {csv_outfile}')
+        combined_df.to_csv(csv_outfile, sep=',')
         #print_record_timerange(combined_df)
         #print_variable_flags(combined_df)
         #print('')
