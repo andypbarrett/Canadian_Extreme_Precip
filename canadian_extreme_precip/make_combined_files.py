@@ -180,15 +180,18 @@ def make_combined_files(outdir='.', verbose=False, make_plot=False, save_plot=Fa
         #print_variable_flags(combined_df)
         #print('')
 
-        fig, ax = plot_variable_time_series(combined_df, recipe['location'].upper())
+        if make_plot:
+            fig, ax = plot_variable_time_series(combined_df, recipe['location'].upper())
 
-        outfile = make_png_filename(recipe["location"], outdir=outdir)
-        if verbose: print(f'Saving figure to {outfile}')
-        
-        #fig.savefig(outfile)
+        if save_plot:
+            outfile = make_png_filename(recipe["location"], outdir=outdir)
+            if verbose: print(f'Saving figure to {outfile}')
+            fig.savefig(outfile)
+        else:
+            plt.show()
 
-        #break
+        break
 
 
 if __name__ == "__main__":
-    make_combined_files(verbose=True)
+    make_combined_files(verbose=True, make_plot=True)
