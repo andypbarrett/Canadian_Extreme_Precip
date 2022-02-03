@@ -67,10 +67,11 @@ def plot_temperature_panel(df, variable, ax=None, hide_xaxis=False,
 def plot_snowdepth_panel(df, variable, ax=None, hide_xaxis=False,
                          add_legend=True):
     '''Plot a snow depth panel'''
-    max_depth = np.ceil(df[variable].max() * .1) * 10.
+    ymax = np.ceil(df[variable].max() * .1) * 10.
+    ymin = -.15 * ymax
     df[variable].plot(ax=ax)
     ax.set_xlim(XBEGIN, XEND)
-    ax.set_ylim(-.1*max_depth, max_depth)
+    ax.set_ylim(ymin, ymax)
     ax.axhline(0., color='0.6', zorder=0)
     ax.text(0.01, 0.85, ' '.join(variable.split('_')),
             transform=ax.transAxes)
@@ -85,7 +86,7 @@ def plot_snowdepth_panel(df, variable, ax=None, hide_xaxis=False,
     flag_colors = ['k', 'r', 'y']
     for color, flag in zip(flag_colors, snow_flags):
         x = df[df[variable+'_FLAG'] == flag].index
-        y = [-5]*len(x)
+        y = [ymin*0.5]*len(x)
         if len(x) > 0:
             ax.scatter(x, y, marker='+', c=color, label=snow_labels[flag])
 
