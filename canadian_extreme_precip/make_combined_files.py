@@ -174,7 +174,7 @@ def get_recipe():
     return recipes
 
 
-def combine_files(recipe):
+def combine_files(recipe, no_reindex_dataframe=False):
     '''Combines station files'''
     df_list = []
     for station in recipe['stations']:
@@ -187,8 +187,17 @@ def combine_files(recipe):
     ndays = (df.index[-1] - df.index[0]).days
     nrecord = len(df.index)
     if nrecord != ndays:
-        warnings.warn('Record timespan in days does not match number of indices')
-        
+        warnings.warn(f'Record timespan in days does not match number of indices\n' + \
+                      f'{nrecord} records found, {ndays} expected!')
+        expected_index = pd.date_range(df.index[0], df.index[-1], freq='D')
+        missing_dates = expected_index.difference(df.index)
+        print('Missing Indices')
+        for mdate in missing_dates:
+            print(mdate)
+        if not no_reindex_dataframe:
+            warnings.warn('Reindexing dataframe to generate temporaly complete series')
+            df = df.reindex(expected_index)
+            
     return df
 
 
@@ -232,13 +241,14 @@ def make_combined_files(save_merged_file=True, outdir='.', plot_dir='.',
     :make_plot: creates plot of temperature and precipitation variables (default False)
     :save_plot: save plot of key variables (default False).  If False image is displayed
                 window.
+    :reindex_dataframe: reindex dataframe to contain full record - set to False for debugging
     :verbose: write progress messages to stdout
     '''
     recipes = get_recipe()
 
     for recipe in recipes:
         if verbose: print(f'Combining files for {recipe["location"]}')
-        combined_df = combine_files(recipe)
+        combined_df = combine_files(recipe, no_reindex_dataframe=no_reindex_dataframe)
 
         if save_merged_file:
             csv_outfile = make_csv_filename(recipe['location'], outdir)
