@@ -191,4 +191,4 @@ def make_combined_files(outdir='.', verbose=False, make_plot=False, save_plot=Fa
 
 
 if __name__ == "__main__":
-    make_combined_files()
+    make_combined_files(verbose=True)
