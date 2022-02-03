@@ -254,8 +254,31 @@ def make_combined_files(save_merged_file=True, outdir='.', plot_dir='.',
         else:
             plt.show()
 
-        break
-
 
 if __name__ == "__main__":
-    make_combined_files(verbose=True, make_plot=False, save_merged_file=False)
+    import argparse
+
+    parser = argparse.ArgumentParser(description='Combines individual station files for Arctic stations')
+    parser.add_argument('--save_merged_file', action='store_false',
+                        help='Save combined file (default True)')
+    parser.add_argument('--outdir', '-o', type=str, default='.',
+                        help='Directory path to save combined file (default .)')
+    parser.add_argument('--plot_dir', type=str, default='.',
+                        help='Directory path to save plot')
+    parser.add_argument('--make_plot', action='store_true',
+                        help='Generate time series plot')
+    parser.add_argument('--save_plot', action='store_true',
+                        help='Save plot as png')
+    parser.add_argument('--no_reindex_dataframe', action='store_true',
+                        help='do not reindex dataframe')
+    parser.add_argument('--verbose', '-v', action='store_true')
+
+    args = parser.parse_args()
+    
+    make_combined_files(save_merged_file=args.save_merged_file,
+                        outdir=args.outdir,
+                        plot_dir=args.plot_dir,
+                        make_plot=args.make_plot,
+                        save_plot=args.save_plot,
+                        no_reindex_dataframe=args.no_reindex_dataframe,
+                        verbose=args.verbose)
