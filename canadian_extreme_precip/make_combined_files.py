@@ -43,7 +43,7 @@ def plot_temperature_panel(df, variable, ax=None, hide_xaxis=False):
     for color, flag in zip(flag_colors, temp_flags):
         x = df[df[variable+'_FLAG'] == flag].index
         y = [-52]*len(x)
-        ax.scatter(x, y, marker='.', c=color, label=flag)
+        ax.scatter(x, y, marker='+', c=color, label=flag)
 
     #ax.legend()
     
