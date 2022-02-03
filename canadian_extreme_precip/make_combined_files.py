@@ -5,6 +5,7 @@ from pathlib import Path
 import json
 import datetime as dt
 import re
+import warnings
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -181,6 +182,13 @@ def combine_files(recipe):
         df_list.append(read_station_file(filepath)[station['start_date']:station['end_date']])
     df = pd.concat(df_list)
     df = df.sort_index()
+    
+    # Check if number of records in df match days in timespan
+    ndays = (df.index[-1] - df.index[0]).days
+    nrecord = len(df.index)
+    if nrecord != ndays:
+        warnings.warn('Record timespan in days does not match number of indices')
+        
     return df
 
 
@@ -250,4 +258,4 @@ def make_combined_files(save_merged_file=True, outdir='.', plot_dir='.',
 
 
 if __name__ == "__main__":
-    make_combined_files(verbose=True, make_plot=True)
+    make_combined_files(verbose=True, make_plot=False, save_merged_file=False)
