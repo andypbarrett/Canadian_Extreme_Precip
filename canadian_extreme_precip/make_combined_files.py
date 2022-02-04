@@ -189,13 +189,9 @@ def combine_files(recipe, no_reindex_dataframe=False):
     if nrecord != ndays:
         warnings.warn(f'Record timespan in days does not match number of indices\n' + \
                       f'{nrecord} records found, {ndays} expected!')
-        expected_index = pd.date_range(df.index[0], df.index[-1], freq='D')
-        missing_dates = expected_index.difference(df.index)
-        print('Missing Indices')
-        for mdate in missing_dates:
-            print(mdate)
         if not no_reindex_dataframe:
             warnings.warn('Reindexing dataframe to generate temporaly complete series')
+            expected_index = pd.date_range(df.index[0], df.index[-1], freq='D')
             df = df.reindex(expected_index)
             
     return df
