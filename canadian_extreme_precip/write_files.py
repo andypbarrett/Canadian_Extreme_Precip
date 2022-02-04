@@ -18,6 +18,10 @@ these_columns = [
     ]
 
 
+HEADER = [
+    'TMEAN', 'TMIN', 'TMAX', 'TOTALP', 'RAIN', 'SNOW', 'DSNOW'
+    ]
+
 def record_fmt(rec):
     '''Generates a formated string for a data record
 
@@ -42,6 +46,7 @@ def var_fmt(r, var):
 
 def write_formatted_data(df, outfile, columns=these_columns):
     with open(outfile, 'w') as f:
+        # TODO - Add header
         for record in df[these_columns].iterrows():
             f.write(record_fmt(record))
     return
