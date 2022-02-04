@@ -27,3 +27,9 @@ def read_station_file(station_file):
     df = pd.read_csv(station_file, index_col='LOCAL_DATE',
                      dtype=column_dtype, parse_dates=True)
     return df
+
+
+def read_combined_file(fpath):
+    '''Reads combined file'''
+    df = pd.read_csv(fpath, dtype=column_dtype, parse_dates=True)
+    return df
