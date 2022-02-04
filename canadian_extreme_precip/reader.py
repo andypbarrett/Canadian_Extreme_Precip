@@ -31,5 +31,5 @@ def read_station_file(station_file):
 
 def read_combined_file(fpath):
     '''Reads combined file'''
-    df = pd.read_csv(fpath, dtype=column_dtype, parse_dates=True)
+    df = pd.read_csv(fpath, index_col=0, dtype=column_dtype, parse_dates=True)
     return df
