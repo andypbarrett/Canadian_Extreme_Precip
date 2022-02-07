@@ -46,7 +46,7 @@ def var_fmt(r, var):
 
 def write_formatted_data(df, outfile, columns=these_columns):
     with open(outfile, 'w') as f:
-        # TODO - Add header
+        f.write(', '.join(these_columns)+'\n')
         for record in df[these_columns].iterrows():
             f.write(record_fmt(record))
     return
