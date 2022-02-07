@@ -10,10 +10,8 @@ DATAPATH = Path('/home/apbarret/Data/Rain_on_snow/Canada_extreme_precip/Combined
 
 def make_one_file(fpath):
     outfile = fpath.name.replace('.csv', '.for_qc.txt')
-    print(outfile)
-    
-    #df = read_combined_file(fpath)
-    #write_formatted_data(df, outfile)
+    df = read_combined_file(fpath)
+    write_formatted_data(df, outfile)
 
 
 for f in DATAPATH.glob('*.csv'):
