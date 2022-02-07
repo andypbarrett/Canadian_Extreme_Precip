@@ -4,8 +4,7 @@ from pathlib import Path
 
 from canadian_extreme_precip.reader import read_combined_file
 from canadian_extreme_precip.write_files import write_formatted_data
-
-DATAPATH = Path('/home/apbarret/Data/Rain_on_snow/Canada_extreme_precip/Combined_files')
+from canadian_extreme_precip.filepath import COMBINED_PATH
 
 
 def make_one_file(fpath):
@@ -14,7 +13,7 @@ def make_one_file(fpath):
     write_formatted_data(df, outfile)
 
 
-for f in DATAPATH.glob('*.csv'):
+for f in COMBINED_PATH.glob('*.csv'):
     print(f'Processing {f.name}')
     make_one_file(f)
     
