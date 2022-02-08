@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import datetime as dt
 
 from canadian_extreme_precip.plotting import station_heatmap
 from canadian_extreme_precip.reader import read_combined_file
@@ -24,7 +25,8 @@ def main():
     df_obs = df_obs.divide(df_obs.index.daysinmonth, axis='rows')
     
     fig, ax = plt.subplots(figsize=(20,7))
-    station_heatmap(df_obs.iloc[:36,:])
+    ax.set_xlim(dt.datetime(1925,1,1), dt.datetime(2021,12,31))
+    station_heatmap(df_obs)
 
     plt.show()
 
