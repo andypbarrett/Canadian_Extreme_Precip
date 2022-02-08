@@ -23,17 +23,24 @@ xend = dt.datetime(2021,12,31)
 
 def main():
     filelist = list(COMBINED_PATH.glob('*.csv'))
-
-    df = read_combined_file(filelist[0])
-    df_obs = df[VARIABLES].apply(np.isfinite).resample('M').sum()
-    df_obs = df_obs.divide(df_obs.index.daysinmonth, axis='rows')
+    nstation = len(filelist)
     
-    fig, ax = plt.subplots(figsize=(20,7))
-    ax.set_xlim(xbeg, xend)
-    
-    img = station_heatmap(df_obs, ax=ax)
+    fig, axes = plt.subplots(len(filelist), 1, figsize=(20,20))
 
-    fig.colorbar(img, ax=ax)
+    for ist, (f, ax) in enumerate(zip(filelist, axes)):
+
+        df = read_combined_file(f)
+        df_obs = df[VARIABLES].apply(np.isfinite).resample('M').sum()
+        df_obs = df_obs.divide(df_obs.index.daysinmonth, axis='rows')
+
+        ax.set_xlim(xbeg, xend)
+        if ist < nstation-1:
+            ax.set_xticks([])
+        ax.tick_params('y', labelsize=7)
+        
+        img = station_heatmap(df_obs, ax=ax)
+
+    fig.colorbar(img, ax=axes)
     
     plt.show()
 
