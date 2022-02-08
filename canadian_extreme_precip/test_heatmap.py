@@ -17,6 +17,10 @@ VARIABLES = [
     ]
 
 
+xbeg = dt.datetime(1925,1,1)
+xend = dt.datetime(2021,12,31)
+
+
 def main():
     filelist = list(COMBINED_PATH.glob('*.csv'))
 
@@ -25,7 +29,8 @@ def main():
     df_obs = df_obs.divide(df_obs.index.daysinmonth, axis='rows')
     
     fig, ax = plt.subplots(figsize=(20,7))
-    ax.set_xlim(dt.datetime(1925,1,1), dt.datetime(2021,12,31))
+    ax.set_xlim(xbeg, xend)
+    
     station_heatmap(df_obs)
 
     plt.show()
