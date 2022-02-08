@@ -19,9 +19,15 @@ def station_heatmap(df, ax=None, cmap=None):
 
     z = df.values.T
     z = np.where(z > 0., z, np.nan)
+
+    #nrow = z.shape[0]
+    #for idx in np.arange(nrow):
+    #    z[idx,:] = (idx + 1) / nrow
+    #print(z[:,0])
     
     x = mdates.date2num(df.index)
     y = df.columns
+    #z = np.broadcast_to(np.arange(len(y)), (z.shape[1],z.shape[0])).T / len(y)
         
     # Get extent of heatmap array
     x0 = df.index[0]
@@ -29,6 +35,7 @@ def station_heatmap(df, ax=None, cmap=None):
     ylim = [len(y)-0.5, -0.5]
 
     img = ax.imshow(z, aspect='auto', cmap=cmap,
+                    interpolation='none', 
                     extent=[xlim[0], xlim[-1], ylim[0], ylim[1]])
 
     ax.set_yticks(np.arange(7))
