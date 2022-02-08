@@ -42,7 +42,7 @@ def main():
         
         img = station_heatmap(df_obs, ax=ax)
 
-        ax.text(0.01, 0.7, station_name,
+        ax.text(0.01, 0.65, station_name,
                 bbox=dict(alpha=0.8, facecolor='white', edgecolor='white'),
                 fontdict=dict(fontsize=15),
                 transform=ax.transAxes)
