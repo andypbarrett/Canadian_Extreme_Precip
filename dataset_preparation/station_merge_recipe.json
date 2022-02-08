@@ -118,20 +118,20 @@
                 "end_date": "2014-12-24"
             }
         ]
-    }
+    },
     {
 	"location": "clyde river",
 	"stations": [
 	    {
 		"climate_identifier": 2400800,
 		"start_date": "1933-09-01",
-		"end_date": "2004-12-05",
-	    }
+		"end_date": "2004-12-05"
+	    },
 	    {
 		"climate_identifier": 2400802,
 		"start_date": "2004-12-06",
 		"end_date": "2021-12-05"
 	    }
-	}
+	]
     }
 ]
