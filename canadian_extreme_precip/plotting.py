@@ -38,6 +38,4 @@ def station_heatmap(df, ax=None, cmap=None):
     for yy in (np.arange(len(y)) - 0.5)[1:]:
         ax.axhline(yy, color='k')
     
-    plt.colorbar(img, ax=ax)
-
-    return ax
+    return img

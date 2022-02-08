@@ -31,8 +31,10 @@ def main():
     fig, ax = plt.subplots(figsize=(20,7))
     ax.set_xlim(xbeg, xend)
     
-    station_heatmap(df_obs)
+    img = station_heatmap(df_obs, ax=ax)
 
+    fig.colorbar(img, ax=ax)
+    
     plt.show()
 
 
