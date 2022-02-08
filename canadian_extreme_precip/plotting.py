@@ -22,7 +22,6 @@ def station_heatmap(df, ax=None, cmap=None):
     
     x = mdates.date2num(df.index)
     y = df.columns
-    #z = np.broadcast_to(np.arange(len(y)), (z.shape[1],z.shape[0])).T / len(y)
         
     # Get extent of heatmap array
     x0 = df.index[0]
