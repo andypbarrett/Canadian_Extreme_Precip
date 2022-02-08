@@ -29,6 +29,8 @@ def main():
 
     for ist, (f, ax) in enumerate(zip(filelist, axes)):
 
+        station_name = ' '.join(f.name.split('.')[0].split('_')).upper()
+        
         df = read_combined_file(f)
         df_obs = df[VARIABLES].apply(np.isfinite).resample('M').sum()
         df_obs = df_obs.divide(df_obs.index.daysinmonth, axis='rows')
@@ -40,6 +42,11 @@ def main():
         
         img = station_heatmap(df_obs, ax=ax)
 
+        ax.text(0.01, 0.7, station_name,
+                bbox=dict(alpha=0.8, facecolor='white', edgecolor='white'),
+                fontdict=dict(fontsize=15),
+                transform=ax.transAxes)
+        
     fig.colorbar(img, ax=axes)
     
     plt.show()
