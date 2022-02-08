@@ -1,7 +1,18 @@
 # How to Combine Station Records
-This file describes how individual station records are combined.  This is based on Mark Serreze's evaluation of the data.
 
-I extracted start and stop dates from files in From_Mark.  Notes from Marks files are in "".
+This file describes how individual station records are combined.  This
+is based on Mark Serreze's evaluation of the data.
+
+I have formalized the merging to make it reproducible.  "Merge
+Recipes" are in station_merge_recipe.json.  This JSON file is used by
+make_combined_files.py to generate merged files.
+
+python -m canadian_extreme_precip.make_combined_files --outdir <output_dir> --verbose
+
+
+
+I extracted start and stop dates from files in From_Mark.  Notes from
+Marks files are in "".
 
 Alert
 A combination of two stations
