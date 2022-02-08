@@ -42,6 +42,6 @@ def station_heatmap(df, ax=None, cmap=None):
     ax.set_yticklabels(y)
     
     for yy in (np.arange(len(y)) - 0.5)[1:]:
-        ax.axhline(yy, color='k')
+        ax.axhline(yy, color='0.7')
     
     return img
