@@ -47,7 +47,8 @@ def main():
                 fontdict=dict(fontsize=15),
                 transform=ax.transAxes)
         
-    fig.colorbar(img, ax=axes)
+    cbar = fig.colorbar(img, ax=axes)
+    cbar.set_label('Daily observations per month', fontsize=15)
     
     plt.show()
 
