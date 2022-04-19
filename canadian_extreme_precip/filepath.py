@@ -4,10 +4,11 @@ from pathlib import Path
 
 HOME = Path.home()
 
-DATAPATH = HOME / 'Data' / 'Rain_on_snow'
+DATAPATH = HOME / 'Data' / 'Rain_on_snow' / 'Canada_extreme_precip'
 
-RAW_STATION_PATH = DATAPATH / 'Canada_extreme_precip' / 'Raw_station_files'
-COMBINED_PATH = DATAPATH / 'Canada_extreme_precip' / 'Combined_files'
+RAW_STATION_PATH = DATAPATH / 'Raw_station_files'
+COMBINED_PATH = DATAPATH / 'Combined_files'
+FIGURE_PATH = DATAPATH / 'Figures'
 
 
 def raw_station_filepath(climate_identifier):
