@@ -1,4 +1,7 @@
-"""Generates plots of monthly time series for stations in Canadian Extreme Precip paper"""
+"""Generates plots of monthly time series for stations in
+   Canadian Extreme Precip paper"""
+
+import matplotlib.pyplot as plt
 
 from reader import read_combined_file
 from filepath import COMBINED_PATH
@@ -15,6 +18,18 @@ def get_station_filelist():
     return station_files
 
 
+def plot_station_monthly_time_series():
+    for station, filepath in get_station_filelist().items():
+        df = read_combined_file(filepath)
+        df_mon = to_monthly(df)
+
+        fig, ax = plt.subplots(3, 1, figsize=(15, 15))
+        monthly_series(df_mon, ax)
+        plt.show()
+
+    return
+
+
 if __name__ == "__main__":
-    plotstation_monthly_time_series()
+    plot_station_monthly_time_series()
 
