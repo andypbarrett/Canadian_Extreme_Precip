@@ -140,24 +140,27 @@ def plot_climatology(df, ax=None, title=None):
     return ax
 
 
-def monthly_series(df, ax):
+def monthly_series(df, fig):
     
     time_begin = dt.datetime(df.index[0].year, 1, 1)
     time_end = dt.datetime(df.index[-1].year, 12, 31)
 
-    df['MEAN_TEMPERATURE'].plot(ax=ax[0], color='k')
-    ax[0].fill_between(df.index, df['MIN_TEMPERATURE'].values, df['MAX_TEMPERATURE'].values,
+    ax1 = fig.add_subplot(311)
+    ax1.plot(df.index, df['MEAN_TEMPERATURE'], color='k')
+    ax1.fill_between(df.index, df['MIN_TEMPERATURE'].values, df['MAX_TEMPERATURE'].values,
                        color='0.6')
-    ax[0].set_xlim(time_begin, time_end)
-    ax[0].axhline(0., c='0.7', zorder=0)
+    ax1.set_xlim(time_begin, time_end)
+    ax1.axhline(0., c='0.7', zorder=0)
+
+    ax2 = fig.add_subplot(312, sharex=ax1)
+    ax2.fill_between(df.index, df["TOTAL_PRECIPITATION"], step='mid')
+    ax2.fill_between(df.index, df["TOTAL_SNOW"], step='mid', color='0.4')
+    ax2.set_xlim(time_begin, time_end)
+    ax2.set_ylim(0., ax2.get_ylim()[1])
+
+    ax3 = fig.add_subplot(313, sharex=ax1)
+    ax3.fill_between(df.index, df["SNOW_ON_GROUND"], step='mid', color='k')
+    ax3.set_xlim(time_begin, time_end)
+    ax3.set_ylim(0., 1.)
     
-    ax[1].fill_between(df.index, df["TOTAL_PRECIPITATION"], step='mid')
-    ax[1].fill_between(df.index, df["TOTAL_SNOW"], step='mid', color='0.4')
-    ax[1].set_xlim(time_begin, time_end)
-    ax[1].set_ylim(0., ax[1].get_ylim()[1])
-    
-    ax[2].fill_between(df.index, df["SNOW_ON_GROUND"], step='mid', color='k')
-    ax[2].set_xlim(time_begin, time_end)
-    ax[2].set_ylim(0., 1.)
-    
-    return ax
+    return [ax1, ax2, ax3]

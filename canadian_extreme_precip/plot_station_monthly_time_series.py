@@ -23,9 +23,12 @@ def plot_station_monthly_time_series():
         df = read_combined_file(filepath)
         df_mon = to_monthly(df)
 
-        fig, ax = plt.subplots(3, 1, figsize=(15, 15))
-        monthly_series(df_mon, ax)
+        fig = plt.figure(figsize=(15, 15))
+        ax = monthly_series(df_mon, fig)
+        fig.suptitle(station.title(), fontsize=20)
+
         plt.show()
+        break
 
     return
 
