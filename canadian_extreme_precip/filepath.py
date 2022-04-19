@@ -18,3 +18,12 @@ def raw_station_filepath(climate_identifier):
 
     :returns: filepath pathlib Path object'''
     return RAW_STATION_PATH / f'{climate_identifier}_climate_daily.csv'
+
+
+def combined_station_filelist():
+    """Return list of station files"""
+    station_files = {}
+    for f in COMBINED_PATH.glob('*combined.csv'):
+        station_name = ' '.join(f.stem.split('.')[0].split('_'))
+        station_files[station_name] = f
+    return station_files

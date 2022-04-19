@@ -9,18 +9,9 @@ from plotting import plot_climatology, monthly_series
 from utils import to_monthly, to_climatology
 
 
-def get_station_filelist():
-    """Return list of station files"""
-    station_files = {}
-    for f in COMBINED_PATH.glob('*combined.csv'):
-        station_name = ' '.join(f.stem.split('.')[0].split('_'))
-        station_files[station_name] = f
-    return station_files
-
-
 def plot_station_monthly_time_series(verbose=False):
     """Plot monthly time series of Arctic stations"""
-    for station, filepath in get_station_filelist().items():
+    for station, filepath in combined_station_filelist().items():
         if verbose: print(f"Generating monthly plot for {station.title()}")
         df = read_combined_file(filepath)
         df_mon = to_monthly(df)
