@@ -151,16 +151,21 @@ def monthly_series(df, fig):
                        color='0.6')
     ax1.set_xlim(time_begin, time_end)
     ax1.axhline(0., c='0.7', zorder=0)
-
+    ticks = ax1.get_xticks()
+    ax1.set_xticks([])
+    ax1.set_ylabel("Temperature ($^{\circ}C$)")
+    
     ax2 = fig.add_subplot(312, sharex=ax1)
     ax2.fill_between(df.index, df["TOTAL_PRECIPITATION"], step='mid')
     ax2.fill_between(df.index, df["TOTAL_SNOW"], step='mid', color='0.4')
     ax2.set_xlim(time_begin, time_end)
     ax2.set_ylim(0., ax2.get_ylim()[1])
+    ax2.set_ylabel("Precipitation (mm)")
 
     ax3 = fig.add_subplot(313, sharex=ax1)
     ax3.fill_between(df.index, df["SNOW_ON_GROUND"], step='mid', color='k')
     ax3.set_xlim(time_begin, time_end)
     ax3.set_ylim(0., 1.)
+    ax3.set_ylabel("Snow on Ground")
     
     return [ax1, ax2, ax3]
