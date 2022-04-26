@@ -171,3 +171,21 @@ def monthly_series(df, fig):
     plt.setp([ax1.get_xticklabels(), ax2.get_xticklabels()], visible=False)
 
     return [ax1, ax2, ax3]
+
+
+def plot_number_of_monthly_obs(df):
+    """Plots the fraction of observations per month"""
+
+    tbeg = dt.datetime(1920, 1, 1)
+    tend = dt.datetime(2022, 12, 31)
+    
+    nvar = len(df.columns)
+    
+    fig, axes = plt.subplots(nvar, 1, figsize=(15, 10))
+
+    for ax, (name, values) in zip(axes.flatten(), df.items()):
+        ax.fill_between(df.index, df[name], step='mid')
+        ax.text(0.01, 0.85, name, transform=ax.transAxes)
+        ax.set_ylim(0., 1.)
+        ax.set_xlim(tbeg, tend)
+    return fig
