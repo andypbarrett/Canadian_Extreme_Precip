@@ -37,7 +37,7 @@ def plot_station_climatologies(verbose=False):
         plot_climatology(df_clm, ax=ax, title=station)
 
     fig.tight_layout()
-    plt.show()
+    fig.savefig(FIGURE_PATH / 'station_climatologies_for_paper.png')
 
 
 if __name__ == "__main__":
