@@ -20,6 +20,12 @@ def raw_station_filepath(climate_identifier):
     return RAW_STATION_PATH / f'{climate_identifier}_climate_daily.csv'
 
 
+def combined_station_filepath(station_name):
+    """Return path to combined file for a station name"""
+    station_id = '_'.join(station_name.split())
+    return COMBINED_PATH / f"{station_id}.combined.csv"
+
+
 def combined_station_filelist():
     """Return list of station files"""
     station_files = {}
