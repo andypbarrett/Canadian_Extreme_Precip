@@ -3,17 +3,43 @@ for Canadian Extreme Precip paper"""
 
 import matplotlib.pyplot as plt
 
-from plotting import plot_number_of_monthly_obs
+from plotting import plot_climatology
 from reader import read_combined_file
-from filepath import FIGURE_PATH, combined_station_filelist
+from filepath import FIGURE_PATH, combined_station_filepath
+from utils import to_monthly, to_climatology
 
 
-def plot_station_climatologies():
+# Excludes Pond Inlet
+stations_list = [
+    'cape dyer',
+    'resolute bay',
+    'eureka',
+    'alert',
+    'clyde river',
+    'cambridge bay',
+    'hall beach',
+    'sachs harbour',
+    'inuvik',
+    ]
+
+
+def plot_station_climatologies(verbose=False):
     """Main function for plotting climatologies"""
 
-    for station, filepath in combined_station_filelist().items():
-        print(station)
+    fig, axes = plt.subplots(3, 3, figsize=(15, 20))
+
+    for ax, station in zip(axes.flatten(), stations_list):
+        if verbose: print(f"Reading data for {station.title()}")
+        df = read_combined_file(combined_station_filepath(station))
+        df_mon = to_monthly(df)
+        df_clm = to_climatology(df_mon.loc['1960':'1995', :])
+
+        plot_climatology(df_clm, ax=ax, title=station)
+
+    fig.tight_layout()
+    plt.show()
 
 
 if __name__ == "__main__":
-    plot_station_climatologies()
+    verbose=True
+    plot_station_climatologies(verbose=verbose)
