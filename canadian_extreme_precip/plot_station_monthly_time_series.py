@@ -4,7 +4,7 @@
 import matplotlib.pyplot as plt
 
 from reader import read_combined_file
-from filepath import COMBINED_PATH, FIGURE_PATH
+from filepath import FIGURE_PATH, combined_station_filelist
 from plotting import plot_climatology, monthly_series
 from utils import to_monthly, to_climatology
 
