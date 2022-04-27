@@ -23,6 +23,15 @@ stations_list = [
     ]
 
 
+def load_climatology(station):
+    """Loads station data and calculates climatology
+    and loads cyclone frequency"""
+    df = read_combined_file(combined_station_filepath(station))
+    df_mon = to_monthly(df)
+    df_clm = to_climatology(df_mon.loc['1960':'1995', :])
+    return df_clm
+
+    
 def plot_station_climatologies(verbose=False):
     """Main function for plotting climatologies"""
 
@@ -30,11 +39,8 @@ def plot_station_climatologies(verbose=False):
 
     for ax, station in zip(axes.flatten(), stations_list):
         if verbose: print(f"Reading data for {station.title()}")
-        df = read_combined_file(combined_station_filepath(station))
-        df_mon = to_monthly(df)
-        df_clm = to_climatology(df_mon.loc['1960':'1995', :])
-
-        plot_climatology(df_clm, ax=ax, title=station)
+        df = load_climatology(station)
+        plot_climatology(df, ax=ax, title=station)
 
     fig.tight_layout()
     fig.savefig(FIGURE_PATH / 'station_climatologies_for_paper.png')
