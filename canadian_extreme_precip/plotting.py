@@ -60,14 +60,15 @@ def new_ylim(ylim):
     return ylim[0]-(0.1*yrng), ylim[1]
 
 
-def plot_climatology(df, ax=None, title=None):
+def plot_climatology(df, ax=None, title=None, add_legend=True,
+                     axis_labels=None):
     """Creates a climatology panel"""
-    
+
     if ax is None:
         ax = plt.gca()
-    
+
     month_labels = [m[0] for m in calendar.month_name if m != '']
-    
+
     # Create and plot temperature axes
     if 'MEAN_TEMPERATURE' in df:
         ax.plot(df.index, df.MEAN_TEMPERATURE, c='k', linestyle='-', lw=2)
@@ -81,7 +82,7 @@ def plot_climatology(df, ax=None, title=None):
         ax.plot(df.index, df.MAX_TEMPERATURE, c='k', linestyle='--', lw=2)
     else:
         warnings.warn("MAX_TEMPERATURE not in df, skipping...")
-    
+
     ax.axhline(0., color='0.5')
 
     ax.set_xlim(0.5, 12.5)
@@ -89,7 +90,7 @@ def plot_climatology(df, ax=None, title=None):
     ax.set_xticklabels(month_labels)
     ax.set_ylabel('Temperature ($^{\circ}C$)', fontsize=20)
     ax.tick_params(labelsize=15)
-    
+
     # Create and plot precipitation axes
     ax2 = ax.twinx()
     if "TOTAL_PRECIPITATION" in df:
@@ -102,7 +103,7 @@ def plot_climatology(df, ax=None, title=None):
         warnings.warn("TOTAL_SNOW not in df, skipping...")
     ax2.set_ylabel('Precipitation (mm)', fontsize=20)
     ax2.tick_params(labelsize=15)
-    
+
     # Add space to show days of snow cover
     ax.set_ylim( new_ylim(ax.get_ylim()) )
     ax2.set_ylim( new_ylim(ax2.get_ylim()) )
@@ -122,22 +123,24 @@ def plot_climatology(df, ax=None, title=None):
         ax2.add_collection(collection)
     else:
         warnings.warn("SNOW_ON_GROUND not in df, skipping...")
-    
+
     # Make sure temperature curves plot in front of precip
     ax.set_zorder(ax2.get_zorder() + 1)
     ax.set_frame_on(False)
 
     ax.set_title(title.title(), fontsize=20)
 
-    ax2.legend(loc='upper left', fontsize=15)
-    
-    # Add some space
-    #fig.subplots_adjust(bottom=0.2)
-    #ax_cb = fig.add_subplot()
-    #cb1 = mpl.colorbar.ColorbarBase(ax_cb, cmap=cmap,
-    #                                orientation='horizontal')
-    #cb1.set_label('% month')
-    
+    if add_legend:
+        ax2.legend(loc='upper left', fontsize=15)
+
+    if axis_labels == "both":
+        ax.set_ylabel()
+        ax2.set_ylabel()
+    elif axis_labels == "left":
+        ax.set_ylabel()
+    elif axis_labels == "right":
+        ax2.set_ylabel()
+
     return ax
 
 
