@@ -56,7 +56,7 @@ def climatology_panel(gs, station, add_legend=True, axis_labels=None):
     ax1.set_xticklabels([])
 
     ax2 = fig.add_subplot(subgs[-1, :])
-    plot_cyclone_climatology(df, ax=ax2)
+    plot_cyclone_climatology(df, ax=ax2, axis_labels=axis_labels)
     return subgs
 
 
