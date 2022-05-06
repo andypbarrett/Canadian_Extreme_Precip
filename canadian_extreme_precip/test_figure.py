@@ -3,11 +3,11 @@
 import numpy as np
 
 import matplotlib.pyplot as plt
-import matplotlib.gridspec as gridspec
+from matplotlib import gridspec
 
 from plotting import plot_climatology, plot_cyclone_climatology
 from reader import read_climatology
-from filepath import climatology_filepath
+from filepath import FIGURE_PATH, climatology_filepath
 
 # Excludes Pond Inlet
 stations_list = [
@@ -74,7 +74,8 @@ def main():
                                         axis_labels=remove_labels(i)))
     plt.tight_layout()
 
-    fig.savefig('test_figure.png')
+    outpath = FIGURE_PATH / 'station_climatologies_with_cyclones.png'
+    fig.savefig(outpath)
 
 
 if __name__ == "__main__":
