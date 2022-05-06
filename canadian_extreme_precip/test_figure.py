@@ -5,48 +5,77 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 
+from plotting import plot_climatology, plot_cyclone_climatology
+from reader import read_climatology
+from filepath import climatology_filepath
 
-def dummy_plot1(ax):
-    x = np.arange(1, 13)
-    y = np.sin((x-1) * np.pi / 11) + np.random.randn(12)
-    ax.plot(x, y)
-    ax.axhline(0.)
-    ax.set_ylabel('Temperature', fontsize=15)
-    return ax
-    
-    
-def dummy_plot2(ax):
-    x = np.arange(1, 13)
-    y = np.sin((x-1) * np.pi / 11) + np.random.randn(12)
-    ax.fill_between(x, y, step='mid')
-    ax.axhline(0.)
-    ax.set_ylabel('Cyclones', fontsize=15)
-    return ax
-    
-    
-def climatology_panel(gs):
+# Excludes Pond Inlet
+stations_list = [
+    'cape dyer',
+    'resolute bay',
+    'eureka',
+    'alert',
+    'clyde river',
+    'cambridge bay',
+    'hall beach',
+    'sachs harbour',
+    'inuvik',
+    ]
+
+
+def remove_labels(i, nrow=3):
+    """Returns keyword to remove yaxis labels"""
+    remove = {
+        0: "right",
+        1: "both",
+        2: "left",
+        }
+    cindex = i % nrow
+    return remove[cindex]
+
+
+def keep_legend(i):
+    """Helper function to return boolean for add_legend 
+    keyword"""
+    if i == 0:
+        return True
+    else:
+        return False
+
+
+def climatology_panel(gs, station, add_legend=True, axis_labels=None):
     """Generate a climatology panel"""
     fig = plt.gcf()
     subgs = gridspec.GridSpecFromSubplotSpec(4, 1, hspace=0., subplot_spec=gs)
+
+    df = read_climatology(climatology_filepath(station))
+
     ax1 = fig.add_subplot(subgs[:-1, :])
-    dummy_plot1(ax1)
+    plot_climatology(df, ax=ax1, title=station, add_legend=add_legend,
+                     axis_labels=axis_labels)
+    ax1.set_xticklabels([])
+
     ax2 = fig.add_subplot(subgs[-1, :])
-    dummy_plot2(ax2)
+    plot_cyclone_climatology(df, ax=ax2)
     return subgs
 
 
 def main():
     fig = plt.figure(figsize=(15, 20))
 
-    gs0 = gridspec.GridSpec(3, 3, figure=fig)
+    nrow = 3
+    ncol = 3
+    gs0 = gridspec.GridSpec(nrow, ncol, figure=fig)
 
     gs_sub = []
-    for gs in gs0:
-        gs_sub.append(climatology_panel(gs))
+    for i, (gs, station) in enumerate(zip(gs0, stations_list)):
+        gs_sub.append(climatology_panel(gs, station,
+                                        add_legend=keep_legend(i),
+                                        axis_labels=remove_labels(i)))
     plt.tight_layout()
-    
-    plt.show()
-    
+
+    fig.savefig('test_figure.png')
+
 
 if __name__ == "__main__":
     main()

@@ -134,12 +134,12 @@ def plot_climatology(df, ax=None, title=None, add_legend=True,
         ax2.legend(loc='upper left', fontsize=15)
 
     if axis_labels == "both":
-        ax.set_ylabel()
-        ax2.set_ylabel()
+        ax.set_ylabel('')
+        ax2.set_ylabel('')
     elif axis_labels == "left":
-        ax.set_ylabel()
+        ax.set_ylabel('')
     elif axis_labels == "right":
-        ax2.set_ylabel()
+        ax2.set_ylabel('')
 
     return ax
 
