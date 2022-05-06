@@ -39,3 +39,8 @@ def read_cyclone_climatology(fpath):
     """Reads cyclone climatology and parses into multi-index dataframe"""
     df = pd.read_csv(fpath, index_col=0)
     return df.set_index(['location', 'month'])
+
+
+def read_climatology(fpath):
+    """Reads climatology file"""
+    return pd.read_csv(fpath, index_col=0)
