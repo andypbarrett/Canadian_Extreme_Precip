@@ -36,3 +36,8 @@ def combined_station_filelist():
         station_name = ' '.join(f.stem.split('.')[0].split('_'))
         station_files[station_name] = f
     return station_files
+
+
+def climatology_filepath(station):
+    """Returns path to climatology file"""
+    return CLIMATOLOGY_PATH / f"{'_'.join(station.split())}.climatology.csv"

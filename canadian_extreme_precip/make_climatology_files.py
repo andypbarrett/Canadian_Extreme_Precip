@@ -3,7 +3,7 @@ observations and cyclone statistics"""
 
 
 from reader import read_combined_file, read_cyclone_climatology
-from filepath import CYCLONE_PATH, CLIMATOLOGY_PATH, combined_station_filepath
+from filepath import combined_station_filepath, climatology_filepath
 from utils import to_monthly, to_climatology
 
 
@@ -28,11 +28,6 @@ def load_climatology(station):
     df_mon = to_monthly(df)
     df_clm = to_climatology(df_mon.loc['1960':'1995', :])
     return df_clm
-
-
-def climatology_filepath(station):
-    """Returns path to climatology file"""
-    return CLIMATOLOGY_PATH / f"{'_'.join(station.split())}.climatology.csv"
 
 
 def make_climatology_files(verbose=False):
