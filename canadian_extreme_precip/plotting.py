@@ -203,7 +203,7 @@ def plot_cyclone_climatology(df, ax=None, title=None, axis_labels=None):
     month_labels = [m[0] for m in calendar.month_name if m != '']
 
     if "CYCLONE_TRACKS" in df:
-        ax.bar(df.index, df.CYCLONE_TRACKS)
+        ax.bar(df.index, df.CYCLONE_TRACKS, color='0.5')
 
     ax.set_xlim(0.5, 12.5)
     ax.set_xticks(np.arange(1,13))
