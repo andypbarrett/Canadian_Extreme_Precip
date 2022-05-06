@@ -11,6 +11,7 @@ COMBINED_PATH = DATAPATH / 'Combined_files'
 FIGURE_PATH = DATAPATH / 'Figures'
 CYCLONE_PATH = Path('/home/apbarret/src/Canadian_extreme_precip/'
                     'data/CycloneFrequency_CanadianWeatherStations_1950_2020.csv')
+CLIMATOLOGY_PATH = DATAPATH / "Climatology"
 
 
 def raw_station_filepath(climate_identifier):
