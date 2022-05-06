@@ -9,6 +9,7 @@ import matplotlib.dates as mdates
 from matplotlib.patches import Rectangle
 from matplotlib.collections import PatchCollection
 import matplotlib as mpl
+from matplotlib import ticker
 
 
 def station_heatmap(df, ax=None, cmap=None):
