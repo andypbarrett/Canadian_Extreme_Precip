@@ -198,7 +198,8 @@ def plot_number_of_monthly_obs(df):
     return fig
 
 
-def plot_cyclone_climatology(df, ax=None, title=None, axis_labels=None):
+def plot_cyclone_climatology(df, ax=None, title=None, axis_labels=None,
+                             ylimit=(0, 8)):
     """Plots climatology of cyclone tracks"""
     if not ax:
         ax = plt.gca()
@@ -212,6 +213,7 @@ def plot_cyclone_climatology(df, ax=None, title=None, axis_labels=None):
     ax.set_xticks(np.arange(1,13))
     ax.set_xticklabels(month_labels)
     ax.tick_params(labelsize=15)
+    ax.set_ylim(ylimit)
     ax.yaxis.set_major_formatter(ticker.StrMethodFormatter("{x:.0f}"))
 
     if axis_labels == "right":
