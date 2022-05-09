@@ -91,6 +91,7 @@ def plot_climatology(df, ax=None, title=None, add_legend=True,
     ax.set_xticklabels(month_labels)
     ax.set_ylabel('Temperature ($^{\circ}C$)', fontsize=20)
     ax.tick_params(labelsize=15)
+    ax.set_ylim(temperature_limit)
 
     # Create and plot precipitation axes
     ax2 = ax.twinx()
@@ -104,6 +105,7 @@ def plot_climatology(df, ax=None, title=None, add_legend=True,
         warnings.warn("TOTAL_SNOW not in df, skipping...")
     ax2.set_ylabel('Precipitation (mm)', fontsize=20)
     ax2.tick_params(labelsize=15)
+    ax2.set_ylim(precipitation_limit)
 
     # Add space to show days of snow cover
     ax.set_ylim( new_ylim(ax.get_ylim()) )
