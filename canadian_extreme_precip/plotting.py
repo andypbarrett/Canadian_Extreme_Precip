@@ -92,6 +92,7 @@ def plot_climatology(df, ax=None, title=None, add_legend=True,
     ax.set_ylabel('Temperature ($^{\circ}C$)', fontsize=20)
     ax.tick_params(labelsize=15)
     ax.set_ylim(temperature_limit)
+    ax.set_yticks([-40., -30., -20., -10., 0., 10., 20.])  # Hard coded
 
     # Create and plot precipitation axes
     ax2 = ax.twinx()
