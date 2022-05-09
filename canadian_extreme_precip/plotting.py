@@ -61,7 +61,8 @@ def new_ylim(ylim):
 
 
 def plot_climatology(df, ax=None, title=None, add_legend=True,
-                     axis_labels=None):
+                     axis_labels=None, temperature_limit=(-45., 20.),
+                     precipitation_limit=(0., 100.)):
     """Creates a climatology panel"""
 
     if ax is None:
