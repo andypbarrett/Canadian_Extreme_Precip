@@ -237,17 +237,62 @@ def location_map(fig=None):
                               central_longitude=270.,
                               true_scale_latitude=70.)
     stations = {
-        'Inuvik': {'lat': 68.30, 'lon': -133.48},
-        'Sachs Harbour': {'lat': 71.99, 'lon': -125.27},
-        'Cambridge Bay': {'lat': 69.11, 'lon': -105.14},
-        'Resolute Bay': {'lat': 74.72, 'lon': -94.97},
-        'Alert': {'lat': 82.52, 'lon': -62.28},
-        'Eureka': {'lat': 79.98, 'lon': -85.93},
-        'Hall Beach': {'lat': 68.78, 'lon': -81.24},
+        'Inuvik': {
+            'lat': 68.30,
+            'lon': -133.48,
+            'pmax': 52,
+            'p95': 9,
+        },
+        'Sachs Harbour': {
+            'lat': 71.99,
+            'lon': -125.27,
+            'pmax': 26,
+            'p95': 8,
+        },
+        'Cambridge Bay': {
+            'lat': 69.11,
+            'lon': -105.14,
+            'pmax': 36,
+            'p95': 9,
+        },
+        'Resolute Bay': {
+            'lat': 74.72,
+            'lon': -94.97,
+            'pmax': 35,
+            'p95': 9,
+        },
+        'Alert': {
+            'lat': 82.52,
+            'lon': -62.28,
+            'pmax': 44,
+            'p95': 7,
+        },
+        'Eureka': {
+            'lat': 79.98,
+            'lon': -85.93,
+            'pmax': 42,
+            'p95': 7,
+        },
+        'Hall Beach': {
+            'lat': 68.78,
+            'lon': -81.24,
+            'pmax': 53,
+            'p95': 11
+        },
         #'Pond Inlet': {'lat': 72.69, 'lon': -77.97},
-        'Clyde River': {'lat': 70.49, 'lon': -68.51},
-        'Cape Dyer': {'lat': 66.58, 'lon': -61.62},
-        }
+        'Clyde River': {
+            'lat': 70.49,
+            'lon': -68.51,
+            'pmax': 41,
+            'p95': 11,
+        },
+        'Cape Dyer': {
+            'lat': 66.58,
+            'lon': -61.62,
+            'pmax': 90,
+            'p95': 24,
+        },
+    }
 
     if not fig:
         fig = plt.gcf()
@@ -265,5 +310,15 @@ def location_map(fig=None):
                 transform=proj,
                 va='top',
                 ha='left',
+                fontsize=12)
+        ax.text(x-40000, y+10000, coord['pmax'],
+                transform=proj,
+                va='bottom',
+                ha='right',
+                fontsize=13)
+        ax.text(x-40000, y-10000, coord['p95'],
+                transform=proj,
+                va='top',
+                ha='right',
                 fontsize=13)
     return ax
