@@ -11,6 +11,9 @@ from matplotlib.collections import PatchCollection
 import matplotlib as mpl
 from matplotlib import ticker
 
+import cartopy.crs as ccrs
+import cartopy.feature as cfeature
+
 
 def station_heatmap(df, ax=None, cmap=None):
     '''Generates a heatmap showing daily observations in each month
@@ -215,9 +218,52 @@ def plot_cyclone_climatology(df, ax=None, title=None, axis_labels=None,
     ax.set_xticklabels(month_labels)
     ax.tick_params(labelsize=15)
     ax.set_ylim(ylimit)
+    ax.set_yticks([0, 2, 4, 6, 8])
     ax.yaxis.set_major_formatter(ticker.StrMethodFormatter("{x:.0f}"))
 
     if axis_labels == "right":
         ax.set_ylabel('Cyclones', fontsize=20)
 
+    return ax
+
+
+def location_map(fig=None):
+    """Plots locations of stations"""
+    map_extent = [
+        -2045000., 2000000.,
+        -3000000., -300000.,
+    ]
+    proj = ccrs.Stereographic(central_latitude=90.,
+                              central_longitude=270.,
+                              true_scale_latitude=70.)
+    stations = {
+        'Inuvik': {'lat': 68.30, 'lon': -133.48},
+        'Sachs Harbour': {'lat': 71.99, 'lon': -125.27},
+        'Cambridge Bay': {'lat': 69.11, 'lon': -105.14},
+        'Resolute Bay': {'lat': 74.72, 'lon': -94.97},
+        'Alert': {'lat': 82.52, 'lon': -62.28},
+        'Eureka': {'lat': 79.98, 'lon': -85.93},
+        'Hall Beach': {'lat': 68.78, 'lon': -81.24},
+        #'Pond Inlet': {'lat': 72.69, 'lon': -77.97},
+        'Clyde River': {'lat': 70.49, 'lon': -68.51},
+        'Cape Dyer': {'lat': 66.58, 'lon': -61.62},
+        }
+
+    if not fig:
+        fig = plt.gcf()
+
+    ax = fig.add_subplot(projection=proj)
+    ax.set_extent(map_extent, proj)
+    ax.add_feature(cfeature.OCEAN)
+    ax.add_feature(cfeature.LAND)
+    for station, coord in stations.items():
+        x, y = proj.transform_point(coord['lon'], coord['lat'],
+                                    ccrs.PlateCarree())
+        ax.scatter(x, y, 50, c='k',
+                   transform=proj)
+        ax.text(x+40000, y-10000, station,
+                transform=proj,
+                va='top',
+                ha='left',
+                fontsize=13)
     return ax
