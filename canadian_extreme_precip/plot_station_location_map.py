@@ -9,7 +9,7 @@ def plot_station_location_map(figsize=(10, 7)):
     """Plots station location map"""
     fig = plt.figure(figsize=figsize)
     ax = location_map(fig)
-    plt.show()
+    fig.savefig('station_location_map.png')
 
 
 if __name__ == "__main__":
