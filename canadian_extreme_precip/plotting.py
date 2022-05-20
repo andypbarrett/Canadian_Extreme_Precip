@@ -301,11 +301,14 @@ def location_map(fig=None):
     ax.set_extent(map_extent, proj)
     ax.add_feature(cfeature.OCEAN)
     ax.add_feature(cfeature.LAND)
+    gl = ax.gridlines(color='0.6', zorder=1, draw_labels=True)
+    gl.top_labels = False
+    
     for station, coord in stations.items():
         x, y = proj.transform_point(coord['lon'], coord['lat'],
                                     ccrs.PlateCarree())
         ax.scatter(x, y, 50, c='k',
-                   transform=proj)
+                   transform=proj, zorder=3)
         ax.text(x+40000, y-10000, station,
                 transform=proj,
                 va='top',
