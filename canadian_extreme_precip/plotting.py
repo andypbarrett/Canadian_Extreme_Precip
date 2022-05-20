@@ -301,9 +301,19 @@ def location_map(fig=None):
     ax.set_extent(map_extent, proj)
     ax.add_feature(cfeature.OCEAN)
     ax.add_feature(cfeature.LAND)
+
+    ax.text(-37.5, 74., 'Greenland',
+            va='center', ha='center',
+            fontsize=20, color='0.4',
+            transform=ccrs.PlateCarree())
+    ax.text(-112.9, 63.8, 'Canada',
+            va='center', ha='center',
+            fontsize=20, color='0.4',
+            transform=ccrs.PlateCarree())
+    
     gl = ax.gridlines(color='0.6', zorder=1, draw_labels=True)
     gl.top_labels = False
-    
+
     for station, coord in stations.items():
         x, y = proj.transform_point(coord['lon'], coord['lat'],
                                     ccrs.PlateCarree())
