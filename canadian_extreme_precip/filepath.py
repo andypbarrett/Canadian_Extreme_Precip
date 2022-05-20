@@ -13,6 +13,11 @@ CYCLONE_PATH = Path('/home/apbarret/src/Canadian_extreme_precip/'
                     'data/CycloneFrequency_CanadianWeatherStations_1950_2020.csv')
 CLIMATOLOGY_PATH = DATAPATH / "Climatology"
 
+STATION_FILEPATH = Path('/home/apbarret/src/Canadian_extreme_precip/'
+                        'data/station_locations.csv')
+STATS_FILEPATH = Path('/home/apbarret/src/Canadian_extreme_precip/'
+                      'data/station_precip_statistics.csv')
+
 
 def raw_station_filepath(climate_identifier):
     '''Returns filepath for station file
