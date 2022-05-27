@@ -277,31 +277,48 @@ def location_map(fig=None):
     for station, data in stations.iterrows():
         x, y = proj.transform_point(data['lon'], data['lat'],
                                     ccrs.PlateCarree())
-        ax.scatter(x, y, 50, c='k',
-                   transform=proj, zorder=3)
-        ax.text(x+40000, y-10000, station.title(),
-                transform=proj,
-                va='top',
-                ha='left',
-                fontsize=12)
-        ax.text(x+4000, y+10000, data['p100'].round(1),
-                transform=proj,
-                va='bottom',
-                ha='left',
-                fontsize=13)
-        ax.text(x-40000, y+10000, data['p99'].round(1),
-                transform=proj,
-                va='bottom',
-                ha='right',
-                fontsize=13)
-        ax.text(x-40000, y-10000, data['p95'].round(1),
-                transform=proj,
-                va='top',
-                ha='right',
-                fontsize=13)
+        add_location(x, y, data, station, ax=ax)
 
     # Legend
     add_map_legend(0.1, 0.9, ax=ax)
+
+    return ax
+
+
+def add_location(x, y, data, station, dx=40000, dy=10000, ax=None):
+    """Add location symbol
+
+    :x: - x position of station in map coordinates
+    :y: - y position in map coordinates
+    :data: pandas dataframe containg stats
+    :station: name of station
+
+    :dx: - x offset for labels
+    :dy: - y offset for labels
+    :ax: - axis
+    """
+    ax.scatter(x, y, 50, c='k',
+               transform=ax.transData, zorder=3)
+    ax.text(x+dx, y-dy, station.title(),
+            transform=ax.transData,
+            va='top',
+            ha='left',
+            fontsize=12)
+    ax.text(x+dx, y+dy, data['p100'].round(1),
+            transform=ax.transData,
+            va='bottom',
+            ha='left',
+            fontsize=13)
+    ax.text(x-dx, y+dy, data['p99'].round(1),
+            transform=ax.transData,
+            va='bottom',
+            ha='right',
+            fontsize=13)
+    ax.text(x-dx, y-dy, data['p95'].round(1),
+            transform=ax.transData,
+            va='top',
+            ha='right',
+            fontsize=13)
 
     return ax
 
