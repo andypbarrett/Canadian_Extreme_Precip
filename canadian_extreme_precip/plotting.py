@@ -294,4 +294,26 @@ def location_map(fig=None):
                 va='top',
                 ha='right',
                 fontsize=13)
+
+    # Legend
+    x, y = 0.1, 0.9
+    dx, dy = 0.01, 0.005
+    ax.scatter(x, y, 50, c='k',
+               transform=ax.transAxes, zorder=3)
+    ax.text(x+dx, y-dy, 'Station Name',
+            transform=ax.transAxes,
+            va='top',
+            ha='left',
+            fontsize=12)
+    ax.text(x-dx, y+dy, '$P_{max}$',
+            transform=ax.transAxes,
+            va='bottom',
+            ha='right',
+            fontsize=12)
+    ax.text(x-dx, y-dy, '$P_{95th}$',
+            transform=ax.transAxes,
+            va='top',
+            ha='right',
+            fontsize=12)
+    
     return ax
