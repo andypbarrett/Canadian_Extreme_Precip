@@ -284,7 +284,12 @@ def location_map(fig=None):
                 va='top',
                 ha='left',
                 fontsize=12)
-        ax.text(x-40000, y+10000, data['p100'].round(1),
+        ax.text(x+4000, y+10000, data['p100'].round(1),
+                transform=proj,
+                va='bottom',
+                ha='left',
+                fontsize=13)
+        ax.text(x-40000, y+10000, data['p99'].round(1),
                 transform=proj,
                 va='bottom',
                 ha='right',
@@ -305,15 +310,20 @@ def location_map(fig=None):
             va='top',
             ha='left',
             fontsize=12)
-    ax.text(x-dx, y+dy, '$P_{max}$',
+    ax.text(x+dx, y+dy, '$P_{max}$',
+            transform=ax.transAxes,
+            va='bottom',
+            ha='left',
+            fontsize=13)
+    ax.text(x-dx, y+dy, '$P_{99th}$',
             transform=ax.transAxes,
             va='bottom',
             ha='right',
-            fontsize=12)
+            fontsize=13)
     ax.text(x-dx, y-dy, '$P_{95th}$',
             transform=ax.transAxes,
             va='top',
             ha='right',
-            fontsize=12)
+            fontsize=13)
     
     return ax
