@@ -301,29 +301,49 @@ def location_map(fig=None):
                 fontsize=13)
 
     # Legend
-    x, y = 0.1, 0.9
+    add_map_legend(0.1, 0.9, ax=ax)
+
+    return ax
+
+
+def add_map_legend(x, y, dx=0.01, dy=0.005, ax=None):
+    """Add legend for station symbols
+
+    :x: - x position of legend in axis coordinates
+    :y: - y position of legend in axis coordinates
+
+    :dx: - x offset of symbols
+    :dy: - y offset of symbols
+    :ax: axis
+    """
     dx, dy = 0.01, 0.005
     ax.scatter(x, y, 50, c='k',
                transform=ax.transAxes, zorder=3)
-    ax.text(x+dx, y-dy, 'Station Name',
-            transform=ax.transAxes,
-            va='top',
-            ha='left',
-            fontsize=12)
-    ax.text(x+dx, y+dy, '$P_{max}$',
-            transform=ax.transAxes,
-            va='bottom',
-            ha='left',
-            fontsize=13)
-    ax.text(x-dx, y+dy, '$P_{99th}$',
-            transform=ax.transAxes,
-            va='bottom',
-            ha='right',
-            fontsize=13)
-    ax.text(x-dx, y-dy, '$P_{95th}$',
-            transform=ax.transAxes,
-            va='top',
-            ha='right',
-            fontsize=13)
+    tx_name = ax.text(x+dx, y-dy, 'Station Name',
+                      transform=ax.transAxes,
+                      va='top',
+                      ha='left',
+                      fontsize=12)
+    tx_max = ax.text(x+dx, y+dy, '$P_{max}$',
+                     transform=ax.transAxes,
+                     va='bottom',
+                     ha='left',
+                     fontsize=13)
+    tx_99 = ax.text(x-dx, y+dy, '$P_{99th}$',
+                    transform=ax.transAxes,
+                    va='bottom',
+                    ha='right',
+                    fontsize=13)
+    tx_95 = ax.text(x-dx, y-dy, '$P_{95th}$',
+                    transform=ax.transAxes,
+                    va='top',
+                    ha='right',
+                    fontsize=13)
+
+    xb, yb = 0.035, 0.85
+    width, height = 0.225, 0.1
+    ax.add_patch(Rectangle((xb, yb), width, height,
+                           color='white', alpha=0.5,
+                           transform=ax.transAxes))
     
     return ax
