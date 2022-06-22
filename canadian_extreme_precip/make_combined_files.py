@@ -15,6 +15,7 @@ from canadian_extreme_precip.reader import read_station_file
 from canadian_extreme_precip.filepath import raw_station_filepath
 
 MERGE_RECIPE_JSON = Path('/', 'home', 'apbarret', 'src', 'Canadian_extreme_precip', 'dataset_preparation', 'station_merge_recipe.json')
+BAD_RECORD_LIST_PATH = Path('/', 'home', 'apbarret', 'src', 'Canadian_extreme_precip', 'data', 'bad_records.csv')
 
 XBEGIN = dt.datetime(1920,1,1)
 XEND = dt.datetime(2021,12,31)
@@ -223,7 +224,16 @@ def make_csv_filename(location, outdir='.'):
     this_path = Path(outdir)
     loc_name = '_'.join(re.split('-|\s', location))
     return this_path / f'{loc_name}.combined.csv'
-    
+
+
+def get_bad_records_list():
+    return pd.read_csv(BAD_RECORD_LIST_PATH, header=0, parse_dates=True)
+
+
+def fix_bad_records(df, bad_df, location):
+    for _, values in bad_df[bad_df.station == location].iterrows():
+        df.loc[values.date, values.variable] = np.nan
+
 
 def make_combined_files(save_merged_file=True, outdir='.', plot_dir='.',
                         verbose=False, make_plot=False, save_plot=False,
@@ -242,10 +252,14 @@ def make_combined_files(save_merged_file=True, outdir='.', plot_dir='.',
     '''
     recipes = get_recipe()
 
+    bad_records = get_bad_records_list()
+
     for recipe in recipes:
         if verbose: print(f'Combining files for {recipe["location"]}')
         combined_df = combine_files(recipe, no_reindex_dataframe=no_reindex_dataframe)
 
+        fix_bad_records(combined_df, bad_records, recipe["location"])
+        
         if save_merged_file:
             csv_outfile = make_csv_filename(recipe['location'], outdir)
             if verbose: print(f'Writing combined file to {csv_outfile}')
