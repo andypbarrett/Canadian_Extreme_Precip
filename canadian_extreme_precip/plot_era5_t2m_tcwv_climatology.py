@@ -2,6 +2,8 @@
 
 from pathlib import Path
 
+import numpy as np
+
 import xarray as xr
 
 import matplotlib.pyplot as plt
@@ -63,8 +65,6 @@ def plot_era5_t2m_tcwv_climatology():
              horizontalalignment='left',
              verticalalignment='top',
              bbox={'facecolor': 'white', 'alpha': 0.5,})
-
-    plt.tight_layout()
     
     fig.savefig('era5.t2m_and_tcwv.climatology.png')
 
