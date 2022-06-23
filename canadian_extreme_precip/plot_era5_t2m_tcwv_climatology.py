@@ -7,7 +7,6 @@ import numpy as np
 import xarray as xr
 
 import matplotlib.pyplot as plt
-import matplotlib.colors as mcolors
 import cartopy.crs as ccrs
 
 from plotting import plot_panarctic_panel
@@ -16,6 +15,8 @@ datafile = Path('/projects/AROSS/Reanalysis/ERA5/surface/monthly/',
                 'era5.single_levels.monthly.climatology.1980to2010.nc')
 
 cbar_kwargs = {'shrink': 0.95, 'orientation': 'horizontal', 'pad': 0.05}
+
+plt.rcParams.update({'mathtext.default':  'regular' })
 
 
 def plot_era5_t2m_tcwv_climatology():
@@ -34,6 +35,12 @@ def plot_era5_t2m_tcwv_climatology():
                              cmap='RdBu_r',
                              cbar_kwargs=cbar_kwargs,)
     ax1.set_title('')
+    ax1.text(0.02, 0.98, 'a) $T_{2m}$',
+             transform=ax1.transAxes,
+             fontsize=17,
+             horizontalalignment='left',
+             verticalalignment='top',
+             bbox={'facecolor': 'white', 'alpha': 0.5,})
     
     ax2 = plot_panarctic_panel(fig, 122)
     cbar_kwargs['label'] = 'kg m$^{-2}$'
@@ -43,6 +50,12 @@ def plot_era5_t2m_tcwv_climatology():
                               cmap='cividis_r',
                               cbar_kwargs=cbar_kwargs,)
     ax2.set_title('')
+    ax2.text(0.02, 0.98, 'b) Prec. Water.',
+             transform=ax2.transAxes,
+             fontsize=17,
+             horizontalalignment='left',
+             verticalalignment='top',
+             bbox={'facecolor': 'white', 'alpha': 0.5,})
     
     fig.savefig('era5.t2m_and_tcwv.climatology.png')
 

@@ -8,6 +8,7 @@ import pandas as pd
 
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
+import matplotlib.colors as mcolors
 from matplotlib.patches import Rectangle
 from matplotlib.collections import PatchCollection
 import matplotlib as mpl
