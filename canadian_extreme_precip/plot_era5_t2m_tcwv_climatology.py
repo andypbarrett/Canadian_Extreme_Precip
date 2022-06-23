@@ -9,9 +9,8 @@ import xarray as xr
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 import cartopy.crs as ccrs
-import cartopy.feature as cfeature
 
-NSIDCNorthPolarStereo = ccrs.NorthPolarStereo()
+from plotting import plot_panarctic_panel
 
 datafile = Path('/projects/AROSS/Reanalysis/ERA5/surface/monthly/',
                 'era5.single_levels.monthly.climatology.1980to2010.nc')
@@ -31,15 +30,6 @@ class MidpointNormalize(mcolors.Normalize):
         return np.ma.masked_array(np.interp(value, x, y))
 
 
-def plot_panel(fig, position):
-    """Plots figure panel"""
-    ax = fig.add_subplot(position,
-                         projection=NSIDCNorthPolarStereo)
-    ax.set_extent([-180,180,60,90], ccrs.PlateCarree())
-    ax.add_feature(cfeature.COASTLINE, zorder=3)
-    return ax
-
-
 def plot_era5_t2m_tcwv_climatology():
     """Plots climatology figure"""
 
@@ -48,7 +38,7 @@ def plot_era5_t2m_tcwv_climatology():
     
     fig = plt.figure(figsize=(10,7))
 
-    ax1 = plot_panel(fig, 121)
+    ax1 = plot_panarctic_panel(fig, 121)
     cbar_kwargs['label'] = '$^\circ$C'
     ds.t2m.sel(month=7).plot(ax=ax1,
                              transform=ccrs.PlateCarree(),
@@ -57,7 +47,7 @@ def plot_era5_t2m_tcwv_climatology():
                              cbar_kwargs=cbar_kwargs,)
     ax1.set_title('')
     
-    ax2 = plot_panel(fig, 122)
+    ax2 = plot_panarctic_panel(fig, 122)
     cbar_kwargs['label'] = 'kg m$^{-2}$'
     ds.tcwv.sel(month=7).plot(ax=ax2,
                               transform=ccrs.PlateCarree(),
