@@ -7,6 +7,9 @@ import numpy as np
 import xarray as xr
 
 import matplotlib.pyplot as plt
+from matplotlib import cm
+from matplotlib.colors import ListedColormap
+
 import cartopy.crs as ccrs
 
 from plotting import plot_panarctic_panel
@@ -17,6 +20,12 @@ datafile = Path('/projects/AROSS/Reanalysis/ERA5/surface/monthly/',
 cbar_kwargs = {'shrink': 0.95, 'orientation': 'horizontal', 'pad': 0.05}
 
 plt.rcParams.update({'mathtext.default':  'regular' })
+
+t2m_cmap = cm.get_cmap('RdBu_r', 256)
+t2m_cmap = ListedColormap(t2m_cmap(np.linspace(0.1, 0.9, 256)))
+
+tcwv_cmap = cm.get_cmap('cividis_r', 256)
+tcwv_cmap = ListedColormap(tcwv_cmap(np.linspace(0.0, 0.9, 256)))
 
 
 def plot_era5_t2m_tcwv_climatology():
@@ -32,7 +41,7 @@ def plot_era5_t2m_tcwv_climatology():
     ds.t2m.sel(month=7).plot(ax=ax1,
                              transform=ccrs.PlateCarree(),
                              center=0., vmin=-20., vmax=20.,
-                             cmap='RdBu_r',
+                             cmap=t2m_cmap,
                              cbar_kwargs=cbar_kwargs,)
     ax1.set_title('')
     ax1.text(0.02, 0.98, 'a) $T_{2m}$',
@@ -47,7 +56,7 @@ def plot_era5_t2m_tcwv_climatology():
     ds.tcwv.sel(month=7).plot(ax=ax2,
                               transform=ccrs.PlateCarree(),
                               vmin=0, vmax=24,
-                              cmap='cividis_r',
+                              cmap=tcwv_cmap,
                               cbar_kwargs=cbar_kwargs,)
     ax2.set_title('')
     ax2.text(0.02, 0.98, 'b) Prec. Water.',
