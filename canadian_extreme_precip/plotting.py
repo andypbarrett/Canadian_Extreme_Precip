@@ -372,5 +372,5 @@ def plot_panarctic_panel(fig, position):
     ax = fig.add_subplot(position,
                          projection=NSIDCNorthPolarStereo)
     ax.set_extent([-180,180,60,90], ccrs.PlateCarree())
-    ax.add_feature(cfeature.COASTLINE, zorder=3)
+    ax.add_feature(cfeature.COASTLINE, zorder=3, color='0.3')
     return ax
