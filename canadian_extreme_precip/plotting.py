@@ -374,3 +374,15 @@ def plot_panarctic_panel(fig, position):
     ax.set_extent([-180,180,60,90], ccrs.PlateCarree())
     ax.add_feature(cfeature.COASTLINE, zorder=3, color='0.3')
     return ax
+
+
+class MidpointNormalize(mcolors.Normalize):
+    def __init__(self, vmin=None, vmax=None, midpoint=None, clip=False):
+        self.midpoint = midpoint
+        mcolors.Normalize.__init__(self, vmin, vmax, clip)
+
+    def __call__(self, value, clip=None):
+        # I'm ignoring masked values and all kinds of edge cases to make a
+        # simple example...
+        x, y = [self.vmin, self.midpoint, self.vmax], [0, 0.5, 1]
+        return np.ma.masked_array(np.interp(value, x, y))
