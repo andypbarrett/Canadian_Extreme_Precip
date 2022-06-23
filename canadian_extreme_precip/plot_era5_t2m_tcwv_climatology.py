@@ -42,7 +42,7 @@ def plot_era5_t2m_tcwv_climatology():
     cbar_kwargs['label'] = '$^\circ$C'
     ds.t2m.sel(month=7).plot(ax=ax1,
                              transform=ccrs.PlateCarree(),
-                             norm=MidpointNormalize(vmin=-3, vmax=18, midpoint=0.),
+                             center=0., vmin=-20., vmax=20.,
                              cmap='RdBu_r',
                              cbar_kwargs=cbar_kwargs,)
     ax1.set_title('')
