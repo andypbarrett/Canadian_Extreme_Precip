@@ -19,7 +19,9 @@ import cartopy.feature as cfeature
 
 from filepath import STATION_FILEPATH, STATS_FILEPATH
 
-NSIDCNorthPolarStereo = ccrs.NorthPolarStereo()
+NSIDCNorthPolarStereo = ccrs.Stereographic(central_latitude=90,
+                                           central_longitude=-45,
+                                           true_scale_latitude=70.)
 
 def load_stations_and_stats():
     """Loads station locations and precipitation statistics
@@ -372,7 +374,7 @@ def plot_panarctic_panel(fig, position):
     """Plots figure panel"""
     ax = fig.add_subplot(position,
                          projection=NSIDCNorthPolarStereo)
-    ax.set_extent([-180,180,60,90], ccrs.PlateCarree())
+    ax.set_extent([-3500000., 3500000., -3500000., 3500000.], NSIDCNorthPolarStereo)
     ax.add_feature(cfeature.COASTLINE, zorder=3, color='0.3')
     return ax
 
