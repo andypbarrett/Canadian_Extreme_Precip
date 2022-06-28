@@ -53,7 +53,8 @@ def plot_temperature_panel(df, variable, ax=None, hide_xaxis=False,
         x = df[df[variable+'_FLAG'] == flag].index
         y = [-52]*len(x)
         if len(x) > 0:
-            ax.scatter(x, y, marker='+', c=color, label=temp_labels[flag])
+            ax.plot(x, y, marker='+', linestyle='',
+                    c=color, label=temp_labels[flag])
 
     if add_legend:
         thandles, tlabels = ax.get_legend_handles_labels()  # needed to drop line label
