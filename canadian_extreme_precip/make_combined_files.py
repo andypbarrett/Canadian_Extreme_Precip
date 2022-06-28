@@ -36,7 +36,7 @@ def plot_temperature_panel(df, variable, ax=None, hide_xaxis=False,
     '''Plot a temperature panel'''
     df[variable].plot(ax=ax)
     ax.set_xlim(XBEGIN, XEND)
-    ax.set_ylim(-55,30)
+    ax.set_ylim(-55, 30)
     ax.axhline(0., color='0.6', zorder=0)
     ax.text(0.01, 0.85, ' '.join(variable.split('_')),
             transform=ax.transAxes)
@@ -175,7 +175,7 @@ def get_recipe():
     return recipes
 
 
-def combine_files(recipe, no_reindex_dataframe=False):
+def combine_files(recipe, reindex_dataframe=True):
     '''Combines station files'''
     df_list = []
     for station in recipe['stations']:
@@ -188,10 +188,10 @@ def combine_files(recipe, no_reindex_dataframe=False):
     ndays = (df.index[-1] - df.index[0]).days
     nrecord = len(df.index)
     if nrecord != ndays:
-        warnings.warn(f'Record timespan in days does not match number of indices\n' + \
-                      f'{nrecord} records found, {ndays} expected!')
-        if not no_reindex_dataframe:
-            warnings.warn('Reindexing dataframe to generate temporaly complete series')
+        print(f'Record timespan in days does not match number of indices\n' + \
+              f'{nrecord} records found, {ndays} expected!')
+        if reindex_dataframe:
+            print('Reindexing dataframe to generate temporaly complete series')
             expected_index = pd.date_range(df.index[0], df.index[-1], freq='D')
             df = df.reindex(expected_index)
             
@@ -237,11 +237,12 @@ def fix_bad_records(df, bad_df, location):
 
 def make_combined_files(save_merged_file=True, outdir='.', plot_dir='.',
                         verbose=False, make_plot=False, save_plot=False,
-                        no_reindex_dataframe=False):
+                        reindex_dataframe=True):
     '''Merges station files according to recipes
 
     :save_merged_file: Save combined file (default True).  Set to False
-                       if you just want to check plots before creating merged file
+                       if you just want to check plots before creating 
+                       merged file
     :outdir: output directory for data files
     :plot_dir: output directory for plots (default cwd)
     :make_plot: creates plot of temperature and precipitation variables (default False)
@@ -256,7 +257,8 @@ def make_combined_files(save_merged_file=True, outdir='.', plot_dir='.',
 
     for recipe in recipes:
         if verbose: print(f'Combining files for {recipe["location"]}')
-        combined_df = combine_files(recipe, no_reindex_dataframe=no_reindex_dataframe)
+        combined_df = combine_files(recipe,
+                                    reindex_dataframe=reindex_dataframe)
 
         fix_bad_records(combined_df, bad_records, recipe["location"])
         
@@ -266,7 +268,8 @@ def make_combined_files(save_merged_file=True, outdir='.', plot_dir='.',
             combined_df.to_csv(csv_outfile, sep=',')
 
         if make_plot:
-            fig, ax = plot_variable_time_series(combined_df, recipe['location'].upper())
+            fig, ax = plot_variable_time_series(combined_df,
+                                                recipe['location'].upper())
 
         if make_plot & save_plot:
             outfile = make_png_filename(recipe["location"], outdir=plot_dir)
@@ -290,7 +293,7 @@ if __name__ == "__main__":
                         help='Generate time series plot')
     parser.add_argument('--save_plot', action='store_true',
                         help='Save plot as png')
-    parser.add_argument('--no_reindex_dataframe', action='store_true',
+    parser.add_argument('--reindex_dataframe', action='store_false',
                         help='do not reindex dataframe')
     parser.add_argument('--verbose', '-v', action='store_true')
 
@@ -301,5 +304,5 @@ if __name__ == "__main__":
                         plot_dir=args.plot_dir,
                         make_plot=args.make_plot,
                         save_plot=args.save_plot,
-                        no_reindex_dataframe=args.no_reindex_dataframe,
+                        reindex_dataframe=args.reindex_dataframe,
                         verbose=args.verbose)
