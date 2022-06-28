@@ -24,13 +24,15 @@ stations_list = [
     'pond inlet',
     ]
 
+QUANTILES = [0.01, 0.05, 0.25, 0.5, 0.75, 0.90, 0.95, 0.99, 1.]
+
 
 def load_precip_data(station):
     df = read_combined_file(combined_station_filepath(station))
     return df['TOTAL_PRECIPITATION']
 
 
-def get_quantiles(df, threshold=0., quantiles=[0.01, 0.05, 0.25, 0.5, 0.75, 0.95, 0.99, 1.]):
+def get_quantiles(df, threshold=0., quantiles=QUANTILES):
     """Calculates quantiles"""
     df_t = df[df > threshold]
     return df_t.quantile(quantiles, interpolation='lower')
@@ -40,7 +42,7 @@ def get_precipitation_quantiles():
 
     stats = {}
     
-    print(f"{' '*15}, {', '.join([f'{v*100.:>3.0f}%' for v in [0.01, 0.05, 0.25, 0.5, 0.75, 0.95, 0.99, 1.]])}")
+    print(f"{' '*15}, {', '.join([f'{v*100.:>3.0f}%' for v in QUANTILES])}")
     for station in stations_list:
         df = load_precip_data(station)
         q = get_quantiles(df, threshold=0.01)
