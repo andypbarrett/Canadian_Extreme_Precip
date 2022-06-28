@@ -226,13 +226,15 @@ def make_csv_filename(location):
 
 
 def get_bad_records_list():
-    return pd.read_csv(BAD_RECORD_LIST_PATH, header=0, parse_dates=True)
+    return pd.read_csv(BAD_RECORD_LIST_PATH,
+                       header=0, parse_dates=True,
+                       skipinitialspace=True)
 
 
 def fix_bad_records(df, bad_df, location):
     for _, values in bad_df[bad_df.station == location].iterrows():
         df.loc[values.date, values.variable] = np.nan
-
+    return
 
 def make_combined_files(save_merged_file=True, plot_dir='.',
                         verbose=False, make_plot=False, save_plot=False,
@@ -260,7 +262,7 @@ def make_combined_files(save_merged_file=True, plot_dir='.',
                                     reindex_dataframe=reindex_dataframe)
 
         fix_bad_records(combined_df, bad_records, recipe["location"])
-        
+
         if save_merged_file:
             csv_outfile = make_csv_filename(recipe['location'])
             if verbose: print(f'Writing combined file to {csv_outfile}')
