@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 from canadian_extreme_precip.reader import read_station_file
-from canadian_extreme_precip.filepath import raw_station_filepath
+from canadian_extreme_precip.filepath import raw_station_filepath, COMBINED_PATH
 
 MERGE_RECIPE_JSON = Path('/', 'home', 'apbarret', 'src', 'Canadian_extreme_precip', 'dataset_preparation', 'station_merge_recipe.json')
 BAD_RECORD_LIST_PATH = Path('/', 'home', 'apbarret', 'src', 'Canadian_extreme_precip', 'data', 'bad_records.csv')
@@ -214,16 +214,14 @@ def print_variable_flags(df):
     return
 
 
-def make_png_filename(location, outdir='.'):
-    this_path = Path(outdir)
+def make_png_filename(location):
     loc_name = '_'.join(re.split('-|\s', location))
-    return this_path / f'{loc_name}.variable.time_series.png'
+    return COMBINED_PATH / f'{loc_name}.variable.time_series.png'
     
 
-def make_csv_filename(location, outdir='.'):
-    this_path = Path(outdir)
+def make_csv_filename(location):
     loc_name = '_'.join(re.split('-|\s', location))
-    return this_path / f'{loc_name}.combined.csv'
+    return COMBINED_PATH / f'{loc_name}.combined.csv'
 
 
 def get_bad_records_list():
@@ -235,7 +233,7 @@ def fix_bad_records(df, bad_df, location):
         df.loc[values.date, values.variable] = np.nan
 
 
-def make_combined_files(save_merged_file=True, outdir='.', plot_dir='.',
+def make_combined_files(save_merged_file=True, plot_dir='.',
                         verbose=False, make_plot=False, save_plot=False,
                         reindex_dataframe=True):
     '''Merges station files according to recipes
@@ -263,7 +261,7 @@ def make_combined_files(save_merged_file=True, outdir='.', plot_dir='.',
         fix_bad_records(combined_df, bad_records, recipe["location"])
         
         if save_merged_file:
-            csv_outfile = make_csv_filename(recipe['location'], outdir)
+            csv_outfile = make_csv_filename(recipe['location'])
             if verbose: print(f'Writing combined file to {csv_outfile}')
             combined_df.to_csv(csv_outfile, sep=',')
 
@@ -285,8 +283,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Combines individual station files for Arctic stations')
     parser.add_argument('--save_merged_file', action='store_false',
                         help='Save combined file (default True)')
-    parser.add_argument('--outdir', '-o', type=str, default='.',
-                        help='Directory path to save combined file (default .)')
     parser.add_argument('--plot_dir', type=str, default='.',
                         help='Directory path to save plot')
     parser.add_argument('--make_plot', action='store_true',
@@ -300,7 +296,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     make_combined_files(save_merged_file=args.save_merged_file,
-                        outdir=args.outdir,
                         plot_dir=args.plot_dir,
                         make_plot=args.make_plot,
                         save_plot=args.save_plot,
