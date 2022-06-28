@@ -2,11 +2,11 @@
 
 import numpy as np
 
-from reader import read_combined_file
-from filepath import combined_station_filepath, FIGURE_PATH
+from canadian_extreme_precip.reader import read_combined_file
+from canadian_extreme_precip.filepath import combined_station_filepath, FIGURE_PATH
 
 
-MIN_PRECIPITATION = 1.  # Threshold precipitation for PDF
+MIN_PRECIPITATION = 0.001  # Threshold precipitation for PDF
 
 stations_list = [
     'cape dyer',

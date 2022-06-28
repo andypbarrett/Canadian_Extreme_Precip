@@ -1,4 +1,4 @@
-from get_precipitation_quantiles import load_precip_data
+from canadian_extreme_precip.get_precipitation_quantiles import load_precip_data
 
 
 stations_list = [
