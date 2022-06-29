@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import gridspec
 
-from plotting import plot_climatology, plot_cyclone_climatology
+from plotting import plot_climatology, plot_cyclone_climatology, make_snow_on_ground_cbar
 from reader import read_climatology
 from filepath import FIGURE_PATH, climatology_filepath
 
@@ -65,14 +65,18 @@ def main():
 
     nrow = 3
     ncol = 3
-    gs0 = gridspec.GridSpec(nrow, ncol, figure=fig)
+    gs0 = gridspec.GridSpec(nrow, ncol, figure=fig,
+                            wspace=0.3, top=0.965, bottom=0.1)
 
     gs_sub = []
     for i, (gs, station) in enumerate(zip(gs0, stations_list)):
         gs_sub.append(climatology_panel(gs, station,
                                         add_legend=keep_legend(i),
                                         axis_labels=remove_labels(i)))
-    plt.tight_layout()
+
+
+    cax = fig.add_axes([0.3, 0.05, 0.4, 0.02])
+    make_snow_on_ground_cbar(cax)
 
     outpath = FIGURE_PATH / 'station_climatologies_with_cyclones.png'
     fig.savefig(outpath)
