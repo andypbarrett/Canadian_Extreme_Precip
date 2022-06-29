@@ -24,7 +24,7 @@ stations_list = [
     'pond inlet',
     ]
 
-QUANTILES = [0.01, 0.05, 0.25, 0.5, 0.75, 0.90, 0.95, 0.99, 1.]
+QUANTILES = [0.01, 0.05, 0.1, 0.25, 0.5, 0.75, 0.90, 0.95, 0.99, 1.]
 
 
 def load_precip_data(station):
