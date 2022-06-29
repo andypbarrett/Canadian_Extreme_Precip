@@ -173,11 +173,11 @@ def plot_climatology(df, ax=None, title=None, add_legend=True,
 def make_snow_on_ground_cbar(ax):
     """Adds a colorbar to the axis for snow on the ground"""
     cmap = mpl.cm.Greens_r
-    norm = mpl.colors.Normalize(vmin=0, vmax=31)
+    norm = mpl.colors.Normalize(vmin=0.0, vmax=1.)
     cb1 = mpl.colorbar.ColorbarBase(ax, cmap=cmap,
                                     norm=norm,
                                     orientation='horizontal')
-    cb1.set_label('Snow on Ground (Days)', fontsize=20)
+    cb1.set_label('Frequency of Snow on Ground', fontsize=20)
     cb1.ax.tick_params(labelsize=15)
     return
 
