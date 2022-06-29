@@ -20,7 +20,7 @@ import cartopy.feature as cfeature
 from filepath import STATION_FILEPATH, STATS_FILEPATH
 
 NSIDCNorthPolarStereo = ccrs.Stereographic(central_latitude=90,
-                                           central_longitude=-45,
+                                           central_longitude=-100.,
                                            true_scale_latitude=70.)
 
 def load_stations_and_stats():
