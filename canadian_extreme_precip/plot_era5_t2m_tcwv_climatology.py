@@ -24,8 +24,8 @@ plt.rcParams.update({'mathtext.default':  'regular' })
 t2m_cmap = cm.get_cmap('coolwarm', 256)
 t2m_cmap = ListedColormap(t2m_cmap(np.linspace(0.1, 0.9, 256)))
 
-tcwv_cmap = cm.get_cmap('cividis_r', 256)
-tcwv_cmap = ListedColormap(tcwv_cmap(np.linspace(0.0, 0.9, 256)))
+tcwv_cmap = cm.get_cmap('viridis_r', 256)
+tcwv_cmap = ListedColormap(tcwv_cmap(np.linspace(0.0, 0.8, 256)))
 
 
 def plot_era5_t2m_tcwv_climatology():
@@ -33,7 +33,7 @@ def plot_era5_t2m_tcwv_climatology():
 
     ds = xr.open_dataset(datafile)
     ds["t2m"] = ds.t2m - 273.15
-    
+
     fig = plt.figure(figsize=(10,7))
 
     ax1 = plot_panarctic_panel(fig, 121)
@@ -54,11 +54,12 @@ def plot_era5_t2m_tcwv_climatology():
     
     ax2 = plot_panarctic_panel(fig, 122)
     cbar_kwargs['label'] = 'kg m$^{-2}$'
-    ds.tcwv.sel(month=7).plot(ax=ax2,
-                              transform=ccrs.PlateCarree(),
-                              vmin=0, vmax=24,
-                              cmap=tcwv_cmap,
-                              cbar_kwargs=cbar_kwargs,)
+    ds.tcwv.sel(month=7).plot.contourf(ax=ax2,
+                                       transform=ccrs.PlateCarree(),
+                                       vmin=0, vmax=50,
+                                       levels=np.arange(0, 22, 2),
+                                       cmap=tcwv_cmap,
+                                       cbar_kwargs=cbar_kwargs,)
     ax2.set_title('')
     ax2.text(0.02, 0.98, 'b) Prec. Water.',
              transform=ax2.transAxes,
