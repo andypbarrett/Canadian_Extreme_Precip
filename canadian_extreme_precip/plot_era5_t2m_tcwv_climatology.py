@@ -21,7 +21,7 @@ cbar_kwargs = {'shrink': 0.95, 'orientation': 'horizontal', 'pad': 0.05}
 
 plt.rcParams.update({'mathtext.default':  'regular' })
 
-t2m_cmap = cm.get_cmap('RdBu_r', 256)
+t2m_cmap = cm.get_cmap('coolwarm', 256)
 t2m_cmap = ListedColormap(t2m_cmap(np.linspace(0.1, 0.9, 256)))
 
 tcwv_cmap = cm.get_cmap('cividis_r', 256)
@@ -38,11 +38,12 @@ def plot_era5_t2m_tcwv_climatology():
 
     ax1 = plot_panarctic_panel(fig, 121)
     cbar_kwargs['label'] = '$^\circ$C'
-    ds.t2m.sel(month=7).plot(ax=ax1,
-                             transform=ccrs.PlateCarree(),
-                             center=0., vmin=-20., vmax=20.,
-                             cmap=t2m_cmap,
-                             cbar_kwargs=cbar_kwargs,)
+    ds.t2m.sel(month=7).plot.contourf(ax=ax1,
+                                      transform=ccrs.PlateCarree(),
+                                      center=0., vmin=-20., vmax=20.,
+                                      levels=np.arange(-20, 22, 4),
+                                      cmap=t2m_cmap,
+                                      cbar_kwargs=cbar_kwargs,)
     ax1.set_title('')
     ax1.text(0.02, 0.98, 'a) $T_{2m}$',
              transform=ax1.transAxes,
