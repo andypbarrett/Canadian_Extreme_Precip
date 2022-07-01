@@ -41,7 +41,7 @@ def plot_era5_t2m_tcwv_climatology():
     ds.t2m.sel(month=7).plot.contourf(ax=ax1,
                                       transform=ccrs.PlateCarree(),
                                       center=0., vmin=-20., vmax=20.,
-                                      levels=np.arange(-20, 22, 4),
+                                      levels=np.arange(-16, 17, 4),
                                       cmap=t2m_cmap,
                                       cbar_kwargs=cbar_kwargs,)
     ax1.set_title('')
