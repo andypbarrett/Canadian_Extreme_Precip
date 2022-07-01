@@ -17,6 +17,8 @@ STATION_FILEPATH = Path('/home/apbarret/src/Canadian_extreme_precip/'
                         'data/station_locations.csv')
 STATS_FILEPATH = Path('/home/apbarret/src/Canadian_extreme_precip/'
                       'data/station_precip_statistics.csv')
+P95_FILEPATH = Path('/home/apbarret/src/Canadian_extreme_precip/'
+                    'data', 'canadian_extreme_precip.table03.p95_event_counts.csv')
 
 
 def raw_station_filepath(climate_identifier):
