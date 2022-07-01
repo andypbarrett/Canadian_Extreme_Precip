@@ -16,6 +16,7 @@ from matplotlib import ticker
 
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
+import cartopy.io.shapereader as shpreader
 
 from filepath import STATION_FILEPATH, STATS_FILEPATH
 
@@ -389,6 +390,19 @@ def plot_panarctic_panel(fig, position):
     ax.set_extent([-3500000., 3500000., -3500000., 3500000.], NSIDCNorthPolarStereo)
     ax.add_feature(cfeature.COASTLINE, zorder=3, color='0.3')
     return ax
+
+
+def mask_greenland(ax, color='white'):
+    shpfilename = shpreader.natural_earth(resolution='110m',
+                                      category='cultural',
+                                      name='admin_0_countries')
+    reader = shpreader.Reader(shpfilename)
+    countries = reader.records()
+    for idx, country in enumerate(countries):
+        if country.attributes['ADM0_A3'] == "GRL":
+            ax.add_geometries([country.geometry], ccrs.PlateCarree(),
+                              facecolor=color,
+                              label=country.attributes['ADM0_A3'])
 
 
 class MidpointNormalize(mcolors.Normalize):
