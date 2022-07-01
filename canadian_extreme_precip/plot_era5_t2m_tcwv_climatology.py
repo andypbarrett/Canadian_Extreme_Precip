@@ -22,7 +22,7 @@ cbar_kwargs = {'shrink': 0.95, 'orientation': 'horizontal', 'pad': 0.05}
 plt.rcParams.update({'mathtext.default':  'regular' })
 
 t2m_cmap = cm.get_cmap('coolwarm', 256)
-t2m_cmap = ListedColormap(t2m_cmap(np.linspace(0.1, 0.9, 256)))
+t2m_cmap = ListedColormap(t2m_cmap(np.linspace(0., 1., 256)))
 
 tcwv_cmap = cm.get_cmap('viridis_r', 256)
 tcwv_cmap = ListedColormap(tcwv_cmap(np.linspace(0.0, 0.8, 256)))
