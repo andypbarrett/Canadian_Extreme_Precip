@@ -36,7 +36,7 @@ def plot_era5_t2m_tcwv_climatology():
 
     fig = plt.figure(figsize=(10,7))
 
-    ax1 = plot_panarctic_panel(fig, 121)
+    ax1 = plot_panarctic_panel(fig, 122)
     cbar_kwargs['label'] = '$^\circ$C'
     ds.t2m.sel(month=7).plot.contourf(ax=ax1,
                                       transform=ccrs.PlateCarree(),
@@ -45,14 +45,14 @@ def plot_era5_t2m_tcwv_climatology():
                                       cmap=t2m_cmap,
                                       cbar_kwargs=cbar_kwargs,)
     ax1.set_title('')
-    ax1.text(0.02, 0.98, 'a) $T_{2m}$',
+    ax1.text(0.02, 0.98, 'b) $T_{2m}$',
              transform=ax1.transAxes,
              fontsize=17,
              horizontalalignment='left',
              verticalalignment='top',
              bbox={'facecolor': 'white', 'alpha': 0.5,})
     
-    ax2 = plot_panarctic_panel(fig, 122)
+    ax2 = plot_panarctic_panel(fig, 121)
     cbar_kwargs['label'] = 'kg m$^{-2}$'
     ds.tcwv.sel(month=7).plot.contourf(ax=ax2,
                                        transform=ccrs.PlateCarree(),
@@ -61,7 +61,7 @@ def plot_era5_t2m_tcwv_climatology():
                                        cmap=tcwv_cmap,
                                        cbar_kwargs=cbar_kwargs,)
     ax2.set_title('')
-    ax2.text(0.02, 0.98, 'b) Prec. Water.',
+    ax2.text(0.02, 0.98, 'a) Prec. Water.',
              transform=ax2.transAxes,
              fontsize=17,
              horizontalalignment='left',
