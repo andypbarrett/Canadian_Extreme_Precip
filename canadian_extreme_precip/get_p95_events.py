@@ -4,18 +4,20 @@ import pandas as pd
 
 from canadian_extreme_precip.get_precipitation_quantiles import (load_precip_data,
                                                                  get_quantiles)
+from canadian_extreme_precip.filepath import P95_FILEPATH
+
 
 stations_list = [
-    'clyde river',
-    'cape dyer',
-    'pond inlet',
-    'resolute bay',
     'inuvik',
+    'sachs harbour',
     'cambridge bay',
+    'resolute bay',
     'alert',
     'eureka',
     'hall beach',
-    'sachs harbour',
+    'clyde river',
+    'cape dyer',
+    'pond inlet',
     ]
 
 year_start = '1960'
@@ -36,8 +38,10 @@ def main():
         result[station] = get_p95_events(station, threshold=0.)
     df = pd.DataFrame(result)
     df = df.where(df.notna(), 0.)
-    print(df.T)
+    df = df * 100. / df.sum()
+    df.T.to_csv(P95_FILEPATH)
+    print(df.round().T.astype(int))
 
-    
+
 if __name__ == "__main__":
     main()
